@@ -1,0 +1,8 @@
+<p>home works!</p>
+<app-load-products-button (load)="onLoadProducts()"></app-load-products-button>
+<ul *ngIf="products$ | async as products">
+    <li *ngFor="let p of products">
+        {{ p.id }} - {{ p.name }} - {{ p.stock }}
+    </li>
+
+</ul>
