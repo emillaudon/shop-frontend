@@ -1,8 +1,23 @@
 <p>home works!</p>
-<app-load-products-button (load)="onLoadProducts()"></app-load-products-button>
+<app-load-products-button (load)="onLoadProducts()" label="Load All Products"></app-load-products-button>
 <ul *ngIf="products$ | async as products">
     <li *ngFor="let p of products">
         {{ p.id }} - {{ p.name }} - {{ p.stock }}
+    </li>
+
+</ul>
+
+<app-load-products-button (load)="onLoadOrders()" label="Load All Orders"></app-load-products-button>
+<ul *ngIf="orders$ | async as orders">
+    <li *ngFor="let o of orders">
+        {{ o.id }} - {{ o.createdAt }} - {{ o.status }}
+        <ul *ngIf="o.items.length > 0">
+            <li *ngFor="let i of o.items">
+                productId: {{ i.id }}
+                quantity: {{ i.quantity }}
+                price: {{ i.quantity }}
+            </li>
+        </ul>
     </li>
 
 </ul>
