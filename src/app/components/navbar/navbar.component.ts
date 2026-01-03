@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
+import { SearchFieldComponent } from '../search-field/search-field.component';
 
 @Component({
   selector: 'app-navbar',
-  imports: [],
+  imports: [SearchFieldComponent],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.scss'
 })
