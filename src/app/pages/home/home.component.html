@@ -1,4 +1,4 @@
-<p>home works!</p>
+<app-navbar></app-navbar>
 <app-load-products-button (load)="onLoadProducts()" label="Load All Products"></app-load-products-button>
 <ul *ngIf="products$ | async as products">
     <li *ngFor="let p of products">

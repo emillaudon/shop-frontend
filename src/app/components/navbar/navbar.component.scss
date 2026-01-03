@@ -1,0 +1,29 @@
+.nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: #33a74d;
+}
+
+.nav__inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 12px 16px;
+    min-height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+}   
+
+.nav__left, .nav__center, .nav__right {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.nav__center {
+    flex: 1;
+    justify-content: center;
+}
+
