@@ -1,0 +1,12 @@
+.text__button {
+    color: white;   
+    font-weight: bold;
+    opacity: 0.9;
+
+    &:hover {
+        opacity: 1;
+        
+        text-decoration: underline;
+        text-underline-offset: 10px;
+    }   
+}
