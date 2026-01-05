@@ -2,13 +2,13 @@
     position: sticky;
     top: 0;
     z-index: 100;
+    width: 100%;
     background: #33a74d;
 }
 
 .nav__inner {
-    width: 100%;
     margin: 0 auto;
-    padding: 12px 16px;
+    padding: 12px 24px; 
     min-height: 64px;
     display: flex;
     align-items: center;
@@ -18,8 +18,12 @@
 
 .nav__left, .nav__center, .nav__right {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     gap: 12px;
+}
+
+.nav__right {
+    background: red;
 }
 
 .nav__left {
