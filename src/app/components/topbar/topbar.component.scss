@@ -1,0 +1,30 @@
+.top {
+    background-color: #2a2a2a;
+    top: 0;
+    width: 100%;
+}
+
+.top__inner {
+    min-height: 64px;
+    justify-content: space-between;
+    align-items: center ;
+    display: flex;
+    padding: 0 24px
+}
+
+.top__left{
+    font-size: xx-large;
+    color: white;
+    font-weight: bold;
+}
+
+.top__right {
+    font-size: 10px;
+    cursor: pointer;
+    color: white;
+
+    .material-icons{
+    font-size: 40px;
+    }
+}
+
