@@ -1,0 +1,14 @@
+.products-page {
+  flex: 1;
+  width: 100%;
+  display: flex;    
+  align-items: stretch;
+}
+:host {
+  display: flex;
+  flex: 1;
+  width: 100%;
+  flex-direction: column;
+  min-height: 0;
+}
+

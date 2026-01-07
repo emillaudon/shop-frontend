@@ -1,0 +1,34 @@
+.card {
+    background-color: white;
+    width: 100%;
+    height: 100%;
+    border-radius: 22px;
+    display: flex;
+    flex-direction: column;
+    
+    
+}
+
+.card__inner {
+    display: flex;
+    flex: 1;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: column;
+}
+
+.card__top, .card__bottom {
+    padding: 10px;
+}
+
+.card__mid {
+    background-color: gold;
+    height: 200px;
+    width: 150px;
+}
+
+:host {
+    display: block;
+    width: 240px;
+    height: 350px;
+}
