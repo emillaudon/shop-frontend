@@ -7,12 +7,10 @@ import { Observable } from 'rxjs';
 import { Product } from '../../models/product';
 import { Order } from '../../models/order';
 import { OrderService } from '../../services/order.service';
-import { CartButtonComponent } from '../../components/cart-button/cart-button.component';
-import { TopbarComponent } from '../../components/topbar/topbar.component';
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [LoadButtonComponent,NavbarComponent, NgIf, NgForOf, CommonModule, NavbarComponent, TopbarComponent],
+  imports: [LoadButtonComponent,NavbarComponent, NgIf, NgForOf, CommonModule],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })
