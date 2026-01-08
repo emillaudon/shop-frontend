@@ -1,17 +1,20 @@
 import { Component } from '@angular/core';
 import { ProductCardComponent } from '../product-card/product-card.component';
 import { Product } from '../../models/product';
-import { NgFor } from '@angular/common';
+import { AsyncPipe, NgFor, NgIf } from '@angular/common';
+import { Observable } from 'rxjs';
+import { ProductService } from '../../services/product.service';
 
 @Component({
   selector: 'app-products',
   standalone: true,
-  imports: [ProductCardComponent, NgFor],
+  imports: [ProductCardComponent, NgFor, NgIf, AsyncPipe],
   templateUrl: './products.component.html',
   styleUrl: './products.component.scss'
 })
 export class ProductsComponent {
-  products: Product[] = [
+  products$!: Observable<Product[]>;
+  productssss: Product[] = [
     new Product(2, "Other Shirt", 10, 10),
     new Product(3, "Placeholder", 4, 4),
     new Product(4, "Also Placeholder", 10,10),
@@ -24,4 +27,10 @@ export class ProductsComponent {
   ];
   product = new Product(1, "T-Shirt", 4, 10);
   trackById = (_: number, p: Product) => p.id;
+  
+  constructor(private productService: ProductService) {}
+
+  ngOnInit() {
+    this.products$ = this.productService.getAllProducts();
+  }
 }
