@@ -15,13 +15,14 @@
     align-items: center;
     justify-content: space-between;
     flex-direction: column;
+    padding: 20px;
 }
 
-.card__top, .card__bottom {
+.card__mid, .card__bottom {
     padding: 10px;
 }
 
-.card__mid {
+.card__top {
     background-color: gold;
     height: 200px;
     width: 150px;

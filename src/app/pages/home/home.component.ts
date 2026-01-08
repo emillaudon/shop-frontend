@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { LoadButtonComponent } from "../../components/load-button/load-button.component";
-import { NavbarComponent } from '../../components/navbar/navbar.component';
 import { ProductService } from '../../services/product.service';
 import { CommonModule, NgForOf, NgIf } from '@angular/common';
 import { Observable } from 'rxjs';
@@ -10,7 +9,7 @@ import { OrderService } from '../../services/order.service';
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [LoadButtonComponent,NavbarComponent, NgIf, NgForOf, CommonModule],
+  imports: [LoadButtonComponent, NgIf, NgForOf, CommonModule],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })
