@@ -5,11 +5,12 @@ import { AsyncPipe, NgFor, NgIf } from '@angular/common';
 import { Observable } from 'rxjs';
 import { ProductService } from '../../services/product.service';
 import { CartService } from '../../services/cart.service';
+import { CartPanelComponent } from '../cart-panel/cart-panel.component';
 
 @Component({
   selector: 'app-products',
   standalone: true,
-  imports: [ProductCardComponent, NgFor, NgIf, AsyncPipe],
+  imports: [ProductCardComponent, CartPanelComponent, NgFor, NgIf, AsyncPipe],
   templateUrl: './products.component.html',
   styleUrl: './products.component.scss'
 })
