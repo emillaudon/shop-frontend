@@ -13,9 +13,11 @@ import { CartItem } from '../../models/cart-item';
 export class CartPanelComponent {
   items$: Observable<CartItem[]>;
   total$: Observable<number>;
+  itemCount$: Observable<number>;
 
   constructor(private cart: CartService){
     this.items$ = this.cart.items$;
     this.total$ = this.cart.total$;
+    this.itemCount$ = this.cart.count$;
   }
 }

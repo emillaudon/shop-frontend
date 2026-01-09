@@ -12,18 +12,38 @@
 }
 
 .items {
-    overflow-y: auto
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.titles {
+    display: flex;
+    justify-content: space-between;
+    font-weight: bold;
 }
 
 .item {
-
+    display: flex;
+    padding: 16px;
+    border-bottom: thin groove gray;
+    flex-direction: row;
+    justify-content: space-between;
 }
 
 .footer {
+    width: 100%;
     border-top: thin dashed gray;
     margin-top: auto;
+    align-items: center;
+    flex-direction: column;
+    display: flex;
 }
 
 .total {
     padding: 20px;
+}
+
+.checkout-button {
+    background-color: #33a74d;
+    color: white;
 }

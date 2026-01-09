@@ -2,13 +2,19 @@
     <h3>Cart</h3>
     <p *ngIf="(items$ | async)?.length === 0">Cart is empty!</p>
     <div class="items" *ngIf="items$ | async as items">
+        <div class="titles">
+            <p>Name</p>
+            <p>Amount</p>
+            <p>Price</p>
+        </div>
         <div class="item" *ngFor="let i of items">
-            {{ i.name }}
-            {{ i.quantity }}
-            {{ i.price }}
+            <p>{{ i.name }}</p>
+            <p>{{ i.quantity }}</p>
+            <p>{{ i.price }}</p>
         </div>
     </div>
     <div class="footer">
-        <div class="total">Total: ${{ total$ | async }}</div>
+        <div class="total">Total: ${{ total$ | async }} Items: {{ itemCount$ | async}}</div>
+        <button class="checkout-button">Checkout</button>
     </div>
 </div>
