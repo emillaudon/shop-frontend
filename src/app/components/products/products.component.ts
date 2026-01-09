@@ -4,6 +4,7 @@ import { Product } from '../../models/product';
 import { AsyncPipe, NgFor, NgIf } from '@angular/common';
 import { Observable } from 'rxjs';
 import { ProductService } from '../../services/product.service';
+import { CartService } from '../../services/cart.service';
 
 @Component({
   selector: 'app-products',
@@ -28,7 +29,11 @@ export class ProductsComponent {
   product = new Product(1, "T-Shirt", 4, 10);
   trackById = (_: number, p: Product) => p.id;
   
-  constructor(private productService: ProductService) {}
+  constructor(private cart: CartService, private productService: ProductService) {}
+
+  onAddToCart(product: Product) {
+    this.cart.add(product, 1);
+  }
 
   ngOnInit() {
     this.products$ = this.productService.getAllProducts();

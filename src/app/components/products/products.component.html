@@ -1,7 +1,8 @@
 <section class="products-page">
     <div class="products-grid" *ngIf="products$ | async as products">
         <app-product-card *ngFor="let p of products; trackBy: trackById"
-        [product]="p">
+        [product]="p"
+        (addToCart)="onAddToCart($event)">
         </app-product-card>
     </div>
 </section>
