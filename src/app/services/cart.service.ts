@@ -29,6 +29,10 @@ export class CartService {
     map(items => items.reduce((sum, i) => sum + i.quantity, 0))
   );
 
+  readonly total$ = this.items$.pipe(
+    map(items => items.reduce((sum, i) => sum + i.quantity * i.price, 0))
+  );
+
   add(product: Product, qty: number = 1) {
     const items = this.itemsSubject.value;
     const existing = items.find(i => i.productId === product.id);

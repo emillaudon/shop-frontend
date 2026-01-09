@@ -1,8 +1,8 @@
-import { Component } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, HostListener, ViewChild } from '@angular/core';
 import { ProductCardComponent } from '../product-card/product-card.component';
 import { Product } from '../../models/product';
 import { AsyncPipe, NgFor, NgIf } from '@angular/common';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { ProductService } from '../../services/product.service';
 import { CartService } from '../../services/cart.service';
 import { CartPanelComponent } from '../cart-panel/cart-panel.component';
@@ -14,7 +14,22 @@ import { CartPanelComponent } from '../cart-panel/cart-panel.component';
   templateUrl: './products.component.html',
   styleUrl: './products.component.scss'
 })
-export class ProductsComponent {
+export class ProductsComponent implements AfterViewInit {
+  @ViewChild('panel') panelRef?: ElementRef<HTMLElement>;
+
+  @ViewChild('panel')
+  set panel(ref: ElementRef<HTMLElement>) {
+    this.panelRef = ref;
+
+    if(ref) {
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => this.updateHeightOfCart());
+      });
+    }
+  }
+ 
+  private sub = new Subscription();
+
   products$!: Observable<Product[]>;
   productssss: Product[] = [
     new Product(2, "Other Shirt", 10, 10),
@@ -43,5 +58,34 @@ export class ProductsComponent {
 
   ngOnInit() {
     this.products$ = this.productService.getAllProducts();
+  }
+
+  ngAfterViewInit() {
+    this.sub.add(
+      this.cart.isOpen$.subscribe(() => {
+        requestAnimationFrame(() => this.updateHeightOfCart());
+      })
+    );
+
+    requestAnimationFrame(() => this.updateHeightOfCart());
+  }
+
+  ngOnDestroy() {
+    this.sub.unsubscribe();
+  }
+
+  @HostListener('window:scroll', ['$event'])
+  @HostListener('window:resize')
+  updateHeightOfCart() {
+    const el = this.panelRef?.nativeElement;
+    if(!el) return;
+    const rectTop = el.getBoundingClientRect().top;
+    const vh = window.innerHeight;
+
+    const available = Math.max(0, Math.min(vh, vh - rectTop));
+    //const available = 6000;
+
+    el.style.setProperty('--panel-h', `${available}px`)
+
   }
 }

@@ -1,1 +1,14 @@
-<p>cart-panel works!</p>
+<div class="panel">
+    <h3>Cart</h3>
+    <p *ngIf="(items$ | async)?.length === 0">Cart is empty!</p>
+    <div class="items" *ngIf="items$ | async as items">
+        <div class="item" *ngFor="let i of items">
+            {{ i.name }}
+            {{ i.quantity }}
+            {{ i.price }}
+        </div>
+    </div>
+    <div class="footer">
+        <div class="total">Total: ${{ total$ | async }}</div>
+    </div>
+</div>

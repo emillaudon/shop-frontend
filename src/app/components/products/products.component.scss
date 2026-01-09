@@ -16,8 +16,10 @@
 .cart-panel {
   width: 320px;
   flex: 0 0 320px;
+  display: flex;
   position: sticky;
-  top: 140px;
+  top: 0px;
+  height: var(--panel-h, calc(100vh - 152px));
   background-color: white;
 }
 

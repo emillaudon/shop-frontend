@@ -6,7 +6,7 @@
         </app-product-card>
     </div>
 
-    <aside class="cart-panel"
+    <aside #panel class="cart-panel"
     *ngIf="cartOpen$ | async">  
     <app-cart-panel></app-cart-panel>
     </aside>
