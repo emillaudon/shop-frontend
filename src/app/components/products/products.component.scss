@@ -21,6 +21,7 @@
   top: 0px;
   height: var(--panel-h, calc(100vh - 152px));
   background-color: white;
+  margin-left: auto;
 }
 
 :host {
