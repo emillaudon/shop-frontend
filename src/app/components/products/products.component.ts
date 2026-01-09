@@ -28,8 +28,13 @@ export class ProductsComponent {
   ];
   product = new Product(1, "T-Shirt", 4, 10);
   trackById = (_: number, p: Product) => p.id;
+  cartOpen$!: Observable<boolean>;
   
-  constructor(private cart: CartService, private productService: ProductService) {}
+  constructor(private cart: CartService, private productService: ProductService) {
+    this.cartOpen$ = this.cart.isOpen$;
+  }
+  
+  
 
   onAddToCart(product: Product) {
     this.cart.add(product, 1);

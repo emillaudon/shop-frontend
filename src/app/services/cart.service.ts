@@ -10,6 +10,21 @@ export class CartService {
   private readonly itemsSubject = new BehaviorSubject<CartItem[]>([]);
   readonly items$ = this.itemsSubject.asObservable();
 
+  private readonly openSubject = new BehaviorSubject<boolean>(false);
+  readonly isOpen$ = this.openSubject.asObservable();
+
+  togglePanel() {
+    this.openSubject.next(!this.openSubject.value);
+  }
+
+  openPanel() {
+    this.openSubject.next(true);
+  }
+
+  closePanel() {
+    this.openSubject.next(false);
+  }
+
   readonly count$ = this.items$.pipe(
     map(items => items.reduce((sum, i) => sum + i.quantity, 0))
   );

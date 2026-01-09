@@ -5,4 +5,9 @@
         (addToCart)="onAddToCart($event)">
         </app-product-card>
     </div>
+
+    <aside class="cart-panel"
+    *ngIf="cartOpen$ | async">  
+    
+    </aside>
 </section>

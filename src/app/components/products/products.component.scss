@@ -13,6 +13,14 @@
     gap: 1.5rem;
 }
 
+.cart-panel {
+  width: 320px;
+  flex: 0 0 320px;
+  position: sticky;
+  top: 140px;
+  background-color: white;
+}
+
 :host {
   display: flex;
   flex: 1;

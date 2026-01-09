@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { CartService } from '../../services/cart.service';
 
 @Component({
   selector: 'app-cart-button',
@@ -7,5 +8,10 @@ import { Component } from '@angular/core';
   styleUrl: './cart-button.component.scss'
 })
 export class CartButtonComponent {
+  constructor(private cart: CartService) {}
+
+  toggle() {
+    this.cart.togglePanel();
+  }
 
 }
