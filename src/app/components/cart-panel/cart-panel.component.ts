@@ -20,4 +20,12 @@ export class CartPanelComponent {
     this.total$ = this.cart.total$;
     this.itemCount$ = this.cart.count$;
   }
+
+  decreaseQuantityOf(productId: number) {
+    this.cart.decreaseAmount(productId);
+  }
+
+  increaseQuantityOf(prodctId: number) {
+    this.cart.increaseAmount(prodctId);
+  }
 }

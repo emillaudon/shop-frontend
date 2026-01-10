@@ -9,7 +9,11 @@
         </div>
         <div class="item" *ngFor="let i of items">
             <p>{{ i.name }}</p>
-            <p>{{ i.quantity }}</p>
+            <div class="quantity">
+                <button (click)="decreaseQuantityOf(i.productId)">-</button>
+                <p>{{ i.quantity }}</p>
+                <button (click)="increaseQuantityOf(i.productId)">+</button>
+            </div>
             <p>{{ i.price }}</p>
         </div>
     </div>

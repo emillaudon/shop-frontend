@@ -69,7 +69,7 @@ export class CartService {
 
     const updated = items.map(i => 
       i.productId === productId
-      ? { ...i, quantity: i.quantity - 1 }
+      ? { ...i, quantity: i.quantity + 1 }
       : i
     );
     this.itemsSubject.next(updated);
@@ -79,7 +79,7 @@ export class CartService {
     const items = this.itemsSubject.value;
 
     const updated = items.filter(i => i.productId === productId);
-    
+
     this.itemsSubject.next(updated);
   }
 

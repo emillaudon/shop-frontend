@@ -30,6 +30,11 @@
     justify-content: space-between;
 }
 
+.quantity {
+    display: flex;
+    flex-direction: row;
+}
+
 .footer {
     width: 100%;
     border-top: thin dashed gray;
