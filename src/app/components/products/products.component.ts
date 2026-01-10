@@ -2,10 +2,11 @@ import { AfterViewInit, Component, ElementRef, HostListener, ViewChild } from '@
 import { ProductCardComponent } from '../product-card/product-card.component';
 import { Product } from '../../models/product';
 import { AsyncPipe, NgFor, NgIf } from '@angular/common';
-import { Observable, Subscription } from 'rxjs';
+import { distinctUntilChanged, map, Observable, Subscription, switchMap } from 'rxjs';
 import { ProductService } from '../../services/product.service';
 import { CartService } from '../../services/cart.service';
 import { CartPanelComponent } from '../cart-panel/cart-panel.component';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-products',
@@ -31,33 +32,31 @@ export class ProductsComponent implements AfterViewInit {
   private sub = new Subscription();
 
   products$!: Observable<Product[]>;
-  productssss: Product[] = [
-    new Product(2, "Other Shirt", 10, 10),
-    new Product(3, "Placeholder", 4, 4),
-    new Product(4, "Also Placeholder", 10,10),
-    new Product(5, "Also Placeholder 2", 11,11),
-    new Product(6, "Other Shirt", 10, 10),
-    new Product(7, "Placeholder", 4, 4),
-    new Product(8, "Also Placeholder", 10,10),
-    new Product(9, "Also Placeholder 2", 11,11),
 
-  ];
   product = new Product(1, "T-Shirt", 4, 10);
   trackById = (_: number, p: Product) => p.id;
   cartOpen$!: Observable<boolean>;
   
-  constructor(private cart: CartService, private productService: ProductService) {
+  constructor(
+    private cart: CartService, 
+    private productService: ProductService,
+    private route: ActivatedRoute
+    ) {
     this.cartOpen$ = this.cart.isOpen$;
   }
   
-  
-
   onAddToCart(product: Product) {
     this.cart.add(product, 1);
   }
 
   ngOnInit() {
-    this.products$ = this.productService.getAllProducts();
+    this.products$ = this.route.queryParamMap.pipe(
+      map(params => (params.get('query') ?? '').trim()),
+      distinctUntilChanged(),
+      switchMap(q => q ? this.productService.search(q) : this.productService.getAllProducts())
+    );
+
+    //this.products$ = this.productService.getAllProducts();
   }
 
   ngAfterViewInit() {

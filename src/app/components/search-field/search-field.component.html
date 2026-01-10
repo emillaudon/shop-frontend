@@ -1,1 +1,8 @@
-<input class="search" type="search" placeholder="Search for products...">
+<form class="search" (submit)="$event.preventDefault(); submit()">
+    <input 
+        type="text" 
+        placeholder="Search for products..."
+        [(ngModel)]="value"
+        name="q"
+    />
+</form>
