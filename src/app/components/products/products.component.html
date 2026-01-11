@@ -1,7 +1,7 @@
 <section class="products-page">
     <div class="products-grid" *ngIf="products$ | async as products">
         <p *ngIf="products.length === 0">No Products Found</p>
-        <app-product-card *ngFor="let p of products; trackBy: trackById"
+        <app-product-card *ngFor="let p of products; trackBy: trackById" *ngIf="p.quantity > 0"
         [product]="p"
         (addToCart)="onAddToCart($event)">
         </app-product-card>

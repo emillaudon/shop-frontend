@@ -33,7 +33,6 @@ export class ProductsComponent implements AfterViewInit {
 
   products$!: Observable<Product[]>;
 
-  product = new Product(1, "T-Shirt", 4, 10);
   trackById = (_: number, p: Product) => p.id;
   cartOpen$!: Observable<boolean>;
   
@@ -55,8 +54,6 @@ export class ProductsComponent implements AfterViewInit {
       distinctUntilChanged(),
       switchMap(q => q ? this.productService.search(q) : this.productService.getAllProducts())
     );
-
-    //this.products$ = this.productService.getAllProducts();
   }
 
   ngAfterViewInit() {
