@@ -1,0 +1,14 @@
+.orders-page {
+    flex: 1;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+:host {
+  display: flex;
+  flex: 1;
+  width: 100%;
+  flex-direction: column;
+  min-height: 0;
+}
