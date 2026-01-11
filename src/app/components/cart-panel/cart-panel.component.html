@@ -19,6 +19,6 @@
     </div>
     <div class="footer">
         <div class="total">Total: ${{ total$ | async }} Items: {{ itemCount$ | async}}</div>
-        <button class="checkout-button">Checkout</button>
+        <button (click)="createOrder()" class="checkout-button">Checkout</button>
     </div>
 </div>
