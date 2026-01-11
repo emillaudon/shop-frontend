@@ -12,11 +12,11 @@ export interface CreateOrderRequest {
 export interface OrderItemDto {
     productId: number;
     quantity: number;
-    price: number;
+    unitPrice: number;
 }
 
 export interface OrderDto {
-    orderId: number;
+    id: number;
     createdAt: string;
     status: string;
     items: OrderItemDto[];
@@ -31,6 +31,13 @@ export class Order {
         public items: OrderItem[],
     ) {
 
+    }
+
+    getTotalOrderValue() {
+        return this.items.reduce(
+            (total, item) => total + item.quantity * item.price,
+            0
+        );
     }
 
 }

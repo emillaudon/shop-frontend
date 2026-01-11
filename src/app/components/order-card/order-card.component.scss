@@ -11,10 +11,17 @@
     display: flex;
 }
 
+.titles {
+    display: flex;
+    justify-content: space-between;
+    font-weight: bold;
+    height: 30px;
+}
+
 .card__inner {
     flex: 1;
     display: flex;
     flex-direction: row;
-    justify-content: space-evenly;
+    justify-content: space-between;
     align-items: center;
 }

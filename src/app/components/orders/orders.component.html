@@ -1,5 +1,8 @@
-<section class="orders-page">
+<section class="orders-page" *ngIf="orders$ | async as orders">
     <div class="orders-column">
-        <app-order-card></app-order-card>
+        <p *ngIf="orders.length === 0">No Orders Found</p>
+        <app-order-card *ngFor="let o of orders;"
+        [order]="o"
+        ></app-order-card>
     </div>
 </section>

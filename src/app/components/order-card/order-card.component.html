@@ -1,17 +1,22 @@
 <article class="card">
     <div class="card__top">
-        <p>Order 1</p>
-        <p>2025-11-11:20:20</p>
+        <p>Order {{order.id}}</p>
+        <p>{{ order.createdAt }}</p>
+    </div>
+    <div class="titles">
+        <p>Quantity</p>
+        <p>Total</p>
+        <p>Status</p>
     </div>
     <div class="card__inner">
         <div class="card__start">
-            3 Items
+            {{ order.items.length }} Items
         </div>
         <div class="card__mid">
-            $300
+            ${{ order.getTotalOrderValue() }}
         </div>
         <div class="card__end">
-            Shipped
+            {{ order.status }}
         </div>
     </div>
 </article>
