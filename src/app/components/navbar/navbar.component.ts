@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { SearchFieldComponent } from '../search-field/search-field.component';
 import { NavbarTextButtonComponent } from '../navbar-text-button/navbar-text-button.component';
 import { CartButtonComponent } from "../cart-button/cart-button.component";
@@ -12,7 +12,7 @@ import { Router } from '@angular/router';
   styleUrl: './navbar.component.scss'
 })
 export class NavbarComponent {
-  constructor(private router: Router) {}
+  private router = inject(Router);
 
   onSearch(text: string) {
     if(!text) {

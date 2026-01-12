@@ -1,8 +1,12 @@
-<section class="orders-page" *ngIf="orders$ | async as orders">
+<section class="orders-page">
     <div class="orders-column">
-        <p *ngIf="orders.length === 0">No Orders Found</p>
-        <app-order-card *ngFor="let o of orders;"
-        [order]="o"
-        ></app-order-card>
+        @if ((orders$ | async)?.length === 0) {
+            <p>No Orders Found</p>
+        }
+        @for (o of (orders$ | async); track $index) {
+            <app-order-card
+            [order]="o"
+            ></app-order-card>
+        }
     </div>
 </section>

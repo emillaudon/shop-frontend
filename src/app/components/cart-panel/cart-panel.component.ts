@@ -1,5 +1,5 @@
-import { AsyncPipe, NgFor, NgIf } from '@angular/common';
-import { Component } from '@angular/core';
+import { AsyncPipe} from '@angular/common';
+import { Component, inject } from '@angular/core';
 import { CartService } from '../../services/cart.service';
 import { firstValueFrom, Observable } from 'rxjs';
 import { CartItem } from '../../models/cart-item';
@@ -8,20 +8,17 @@ import { OrderService } from '../../services/order.service';
 
 @Component({
   selector: 'app-cart-panel',
-  imports: [NgIf, AsyncPipe, NgFor],
+  imports: [AsyncPipe],
   templateUrl: './cart-panel.component.html',
   styleUrl: './cart-panel.component.scss'
 })
 export class CartPanelComponent {
-  items$: Observable<CartItem[]>;
-  total$: Observable<number>;
-  itemCount$: Observable<number>;
+  private cart = inject(CartService);
+  private orderService = inject(OrderService);
 
-  constructor(private cart: CartService, private orderService: OrderService){
-    this.items$ = this.cart.items$;
-    this.total$ = this.cart.total$;
-    this.itemCount$ = this.cart.count$;
-  }
+  items$: Observable<CartItem[]> = this.cart.items$;
+  total$: Observable<number> = this.cart.total$;
+  itemCount$: Observable<number> = this.cart.count$;
 
   decreaseQuantityOf(productId: number) {
     this.cart.decreaseAmount(productId);
@@ -40,7 +37,7 @@ export class CartPanelComponent {
     }));
 
     this.orderService.createOrder(items).subscribe({
-      next: (order) => {
+      next: () => {
         this.cart.clear();
         this.cart.closePanel();
       },

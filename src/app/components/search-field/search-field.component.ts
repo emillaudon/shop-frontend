@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, inject, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { NavigationStart, Router } from '@angular/router';
 import { filter, Subscription } from 'rxjs';
@@ -10,12 +10,14 @@ import { filter, Subscription } from 'rxjs';
   styleUrl: './search-field.component.scss'
 })
 export class SearchFieldComponent {
-  @Output() search = new EventEmitter<string>();
+  @Output() query = new EventEmitter<string>();
+  private router = inject(Router);
+
   private sub = new Subscription();
 
   value = '';
 
-  constructor(private router: Router) {
+  constructor() {
     this.sub.add(
       this.router.events.pipe(
         filter((e): e is NavigationStart => e instanceof NavigationStart),
@@ -28,12 +30,12 @@ export class SearchFieldComponent {
   }
 
   submit() {
-    this.search.emit(this.value.trim());
+    this.query.emit(this.value.trim());
   }
 
   clear() {
     this.value = '';
-    this.search.emit('');
+    this.query.emit('');
   }
 
 }

@@ -1,7 +1,7 @@
-import { AfterViewInit, Component, ElementRef, HostListener, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, HostListener, inject, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ProductCardComponent } from '../product-card/product-card.component';
 import { Product } from '../../models/product';
-import { AsyncPipe, NgFor, NgIf } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { distinctUntilChanged, map, Observable, Subscription, switchMap } from 'rxjs';
 import { ProductService } from '../../services/product.service';
 import { CartService } from '../../services/cart.service';
@@ -11,11 +11,11 @@ import { ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'app-products',
   standalone: true,
-  imports: [ProductCardComponent, CartPanelComponent, NgFor, NgIf, AsyncPipe],
+  imports: [ProductCardComponent, CartPanelComponent, AsyncPipe],
   templateUrl: './products.component.html',
   styleUrl: './products.component.scss'
 })
-export class ProductsComponent implements AfterViewInit {
+export class ProductsComponent implements AfterViewInit, OnDestroy, OnInit {
   @ViewChild('panel') panelRef?: ElementRef<HTMLElement>;
 
   @ViewChild('panel')
@@ -34,15 +34,11 @@ export class ProductsComponent implements AfterViewInit {
   products$!: Observable<Product[]>;
 
   trackById = (_: number, p: Product) => p.id;
-  cartOpen$!: Observable<boolean>;
-  
-  constructor(
-    private cart: CartService, 
-    private productService: ProductService,
-    private route: ActivatedRoute
-    ) {
-    this.cartOpen$ = this.cart.isOpen$;
-  }
+  private cart = inject(CartService);
+  private productService = inject(ProductService);
+  private route = inject(ActivatedRoute);
+
+  cartOpen$: Observable<boolean> = this.cart.isOpen$;
   
   onAddToCart(product: Product) {
     this.cart.add(product, 1);
@@ -70,7 +66,7 @@ export class ProductsComponent implements AfterViewInit {
     this.sub.unsubscribe();
   }
 
-  @HostListener('window:scroll', ['$event'])
+  @HostListener('window:scroll')
   @HostListener('window:resize')
   updateHeightOfCart() {
     const el = this.panelRef?.nativeElement;
@@ -79,7 +75,6 @@ export class ProductsComponent implements AfterViewInit {
     const vh = window.innerHeight;
 
     const available = Math.max(0, Math.min(vh, vh - rectTop));
-    //const available = 6000;
 
     el.style.setProperty('--panel-h', `${available}px`)
 

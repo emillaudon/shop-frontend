@@ -1,22 +1,27 @@
 <div class="panel">
     <h3>Cart</h3>
-    <p *ngIf="(items$ | async)?.length === 0">Cart is empty!</p>
-    <div class="items" *ngIf="items$ | async as items">
-        <div class="titles">
-            <p>Name</p>
-            <p>Amount</p>
-            <p>Price</p>
-        </div>
-        <div class="item" *ngFor="let i of items">
-            <p>{{ i.name }}</p>
-            <div class="quantity">
-                <button (click)="decreaseQuantityOf(i.productId)">-</button>
-                <p>{{ i.quantity }}</p>
-                <button (click)="increaseQuantityOf(i.productId)">+</button>
+    @if ((items$ | async)?.length === 0) {
+        <p>Cart is empty!</p>
+    } @else {
+        <div class="items">
+            <div class="titles">
+                <p>Name</p>
+                <p>Amount</p>
+                <p>Price</p>
             </div>
-            <p>{{ i.price }}</p>
+            @for (i of (items$ | async); track $index) {
+                <div class="item">
+                <p>{{ i.name }}</p>
+                <div class="quantity">
+                    <button (click)="decreaseQuantityOf(i.productId)">-</button>
+                    <p>{{ i.quantity }}</p>
+                    <button (click)="increaseQuantityOf(i.productId)">+</button>
+                </div>
+                <p>{{ i.price }}</p>
+            </div>
+            }
         </div>
-    </div>
+    }
     <div class="footer">
         <div class="total">Total: ${{ total$ | async }} Items: {{ itemCount$ | async}}</div>
         <button (click)="createOrder()" class="checkout-button">Checkout</button>

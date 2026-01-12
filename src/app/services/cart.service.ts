@@ -37,7 +37,7 @@ export class CartService {
     return this.itemsSubject.value;
   }
 
-  add(product: Product, qty: number = 1) {
+  add(product: Product, qty = 1) {
     const items = this.itemsSubject.value;
     const existing = items.find(i => i.productId === product.id);
 

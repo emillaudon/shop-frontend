@@ -1,14 +1,19 @@
 <section class="products-page">
-    <div class="products-grid" *ngIf="products$ | async as products">
-        <p *ngIf="products.length === 0">No Products Found</p>
-        <app-product-card *ngFor="let p of products; trackBy: trackById"
-        [product]="p"
-        (addToCart)="onAddToCart($event)">
-        </app-product-card>
+    <div class="products-grid">
+        @if ((products$ | async)?.length === 0) {
+            <p>No Products Found</p>
+        }
+        @for (p of (products$ | async); track $index) {
+            <app-product-card
+            [product]="p"
+            (addToCart)="onAddToCart(p)">
+            </app-product-card>
+        }
     </div>
 
-    <aside #panel class="cart-panel"
-    *ngIf="cartOpen$ | async">  
-    <app-cart-panel></app-cart-panel>
-    </aside>
+    @if ((cartOpen$ | async)) {
+        <aside #panel class="cart-panel">  
+        <app-cart-panel></app-cart-panel>
+        </aside>
+    }
 </section>

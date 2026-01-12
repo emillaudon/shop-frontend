@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CartService } from '../../services/cart.service';
 import { Observable } from 'rxjs';
 import { AsyncPipe } from '@angular/common';
@@ -10,13 +10,11 @@ import { AsyncPipe } from '@angular/common';
   styleUrl: './cart-button.component.scss'
 })
 export class CartButtonComponent {
-  cartCount$!: Observable<number>;
-  constructor(private cart: CartService) {
-    this.cartCount$ = cart.count$;
-  }
+  private cart = inject(CartService);
+
+  cartCount$: Observable<number> = this.cart.count$;
 
   toggle() {
     this.cart.togglePanel();
   }
-
 }
