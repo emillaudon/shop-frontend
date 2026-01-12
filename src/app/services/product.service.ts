@@ -17,8 +17,6 @@ export class ProductService {
 
   search(query: string): Observable<Product[]> {
     const params = new HttpParams().set('query', query);
-    console.log(params);
-    console.log(this.http.get<Product[]>('/api/products', { params }));
     return this.http.get<Product[]>('/api/products', { params });
   }
 }
