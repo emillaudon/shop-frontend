@@ -1,59 +1,112 @@
-# ShopFrontend
+# Shop Frontend
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.19.
+An Angular frontend for a simple shop application, built to work together with the
+Shop Backend:
+https://github.com/emillaudon/shop-backend
 
-## Development server
+This project is built as a learning and portfolio project with a strong focus on
+clean architecture, best practices, and maintainable frontend code.
 
-To start a local development server, run:
+> ⚠️ This project is still under active development.
 
-```bash
+---
+
+## Tech Stack
+
+- Angular (standalone components)
+- TypeScript
+- RxJS
+- Angular Router
+- ESLint (Angular + TypeScript)
+- HTML / SCSS
+
+---
+
+## Features
+
+- Product listing
+- Product search
+- Shopping cart with reactive state
+- Order creation
+- Feature-based Angular architecture
+- Clean separation of UI, data access, and domain logic
+
+---
+
+## Project Structure
+
+The frontend follows a feature-based architecture:
+
+src/app  
+├─ core/ App-wide configuration and core services  
+├─ features/  
+│ ├─ products/  
+│ │ ├─ pages/  
+│ │ ├─ components/  
+│ │ └─ data-access/  
+│ ├─ orders/  
+│ └─ cart/  
+├─ shared/  
+│ ├─ ui/  
+│ └─ models/  
+└─ layout/
+
+This structure is designed to scale well and keep features isolated and easy to
+maintain.
+
+---
+
+## Code Quality
+
+- ESLint enabled and enforced
+- Uses Angular built-in control flow (@if, @for)
+- Dependency injection via inject()
+- Small, focused components
+- Continuous refactoring and cleanup
+
+---
+
+## Running the Project
+
+Install dependencies:
+
+npm install
+
+Start development server:
+
 ng serve
-```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+The application will be available at:
 
-## Code scaffolding
+http://localhost:4200
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+Make sure the backend is running for full functionality.
 
-```bash
-ng generate component component-name
-```
+---
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+## Backend
 
-```bash
-ng generate --help
-```
+The backend for this project is implemented in Spring Boot:
 
-## Building
+https://github.com/emillaudon/shop-backend
 
-To build the project run:
+---
 
-```bash
-ng build
-```
+## Purpose
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+This project demonstrates:
 
-## Running unit tests
+- modern Angular development practices
+- clean frontend architecture
+- fullstack communication with a REST API
+- continuous refactoring and improvement
 
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+It is not intended as a production-ready shop, but as a solid learning and portfolio
+project.
 
-```bash
-ng test
-```
+---
 
-## Running end-to-end tests
+## Status
 
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+Work in progress.  
+New features, refactors, and improvements are added continuously.
