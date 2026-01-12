@@ -13,7 +13,7 @@ export class OrderService {
 
   getAllOrders() {
 
-    return this.http.get<OrderDto[]>("api/orders").pipe(
+    return this.http.get<OrderDto[]>("/api/orders").pipe(
       map(dtos => dtos.map(dto => 
         new Order(
           dto.id,
