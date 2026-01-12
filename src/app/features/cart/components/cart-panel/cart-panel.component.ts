@@ -1,10 +1,10 @@
 import { AsyncPipe} from '@angular/common';
 import { Component, inject } from '@angular/core';
-import { CartService } from '../../services/cart.service';
 import { firstValueFrom, Observable } from 'rxjs';
 import { CartItem } from '../../models/cart-item';
-import { CreateOrderItemRequest } from '../../models/order';
-import { OrderService } from '../../services/order.service';
+import { OrderService } from '../../../orders/data-access/order.service';
+import { CreateOrderItemRequest } from '../../../orders/models/order';
+import { CartService } from '../../data-access/cart.service';
 
 @Component({
   selector: 'app-cart-panel',

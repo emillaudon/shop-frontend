@@ -1,4 +1,4 @@
-import { OrderItem } from "./order-item";
+import { OrderItem } from "../../cart/models/order-item";
 
 export interface CreateOrderItemRequest {
     productId: number;

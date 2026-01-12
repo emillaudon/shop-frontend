@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
-import { CartService } from '../../services/cart.service';
 import { Observable } from 'rxjs';
 import { AsyncPipe } from '@angular/common';
+import { CartService } from '../../data-access/cart.service';
 
 @Component({
   selector: 'app-cart-button',

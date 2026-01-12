@@ -1,9 +1,9 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { OrderCardComponent } from "../order-card/order-card.component";
+import { OrderCardComponent } from "../../components/order-card/order-card.component";
 import { Observable } from 'rxjs';
-import { Order } from '../../models/order';
-import { OrderService } from '../../services/order.service';
+import { OrderService } from '../../data-access/order.service';
 import { AsyncPipe} from '@angular/common';
+import { Order } from '../../models/order';
 
 @Component({
   selector: 'app-orders',

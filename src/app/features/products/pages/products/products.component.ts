@@ -1,12 +1,12 @@
 import { AfterViewInit, Component, ElementRef, HostListener, inject, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { ProductCardComponent } from '../product-card/product-card.component';
 import { Product } from '../../models/product';
 import { AsyncPipe } from '@angular/common';
 import { distinctUntilChanged, map, Observable, Subscription, switchMap } from 'rxjs';
-import { ProductService } from '../../services/product.service';
-import { CartService } from '../../services/cart.service';
-import { CartPanelComponent } from '../cart-panel/cart-panel.component';
+import { CartPanelComponent } from '../../../cart/components/cart-panel/cart-panel.component';
 import { ActivatedRoute } from '@angular/router';
+import { ProductCardComponent } from '../../components/product-card/product-card.component';
+import { ProductService } from '../../data-access/product.service';
+import { CartService } from '../../../cart/data-access/cart.service';
 
 @Component({
   selector: 'app-products',

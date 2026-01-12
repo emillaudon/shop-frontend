@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
-import { SearchFieldComponent } from '../search-field/search-field.component';
-import { NavbarTextButtonComponent } from '../navbar-text-button/navbar-text-button.component';
-import { CartButtonComponent } from "../cart-button/cart-button.component";
+import { SearchFieldComponent } from '../../features/products/components/search-field/search-field.component';
+import { NavbarTextButtonComponent } from '../../shared/ui/navbar-text-button/navbar-text-button.component';
+import { CartButtonComponent } from "../../features/cart/components/cart-button/cart-button.component";
 import { Router } from '@angular/router';
 
 @Component({
