@@ -82,7 +82,7 @@ export class CartService {
   remove(productId: number) {
     const items = this.itemsSubject.value;
 
-    const updated = items.filter(i => i.productId === productId);
+    const updated = items.filter(i => i.productId !== productId);
 
     this.itemsSubject.next(updated);
   }
