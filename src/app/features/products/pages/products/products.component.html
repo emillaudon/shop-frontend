@@ -1,13 +1,22 @@
 <section class="products-page">
     <div class="products-grid">
-        @if ((products$ | async)?.length === 0) {
-            <p>No Products Found</p>
-        }
-        @for (p of (products$ | async); track $index) {
-            <app-product-card
-            [product]="p"
-            (addToCart)="onAddToCart(p)">
-            </app-product-card>
+        @if(vm$ | async; as vm) {
+            @if(vm.loading) {
+                <p>Loading...</p>
+            }
+            @if(vm.error) {
+                <p>{{ vm.error.message }}</p>
+                <button (click)="reload()">Retry</button>
+            }
+            @if (!vm.loading && !vm.error && (vm.data?.length === 0)) {
+                <p>No Products Found</p>
+            }
+            @for (p of (vm.data ?? []); track p.id) {
+                <app-product-card
+                    [product]="p"
+                    (addToCart)="onAddToCart(p)">
+                </app-product-card>
+            }
         }
     </div>
 

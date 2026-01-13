@@ -1,12 +1,13 @@
 import { AfterViewInit, Component, ElementRef, HostListener, inject, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Product } from '../../models/product';
 import { AsyncPipe } from '@angular/common';
-import { distinctUntilChanged, map, Observable, Subscription, switchMap } from 'rxjs';
+import { catchError, distinctUntilChanged, map, merge, Observable, of, startWith, Subject, Subscription, switchMap, withLatestFrom } from 'rxjs';
 import { CartPanelComponent } from '../../../cart/components/cart-panel/cart-panel.component';
 import { ActivatedRoute } from '@angular/router';
 import { ProductCardComponent } from '../../components/product-card/product-card.component';
 import { ProductService } from '../../data-access/product.service';
 import { CartService } from '../../../cart/data-access/cart.service';
+import { Vm } from '../../../../shared/state/view-model';
 
 @Component({
   selector: 'app-products',
@@ -28,6 +29,9 @@ export class ProductsComponent implements AfterViewInit, OnDestroy, OnInit {
       });
     }
   }
+  
+  private reload$ = new Subject<void>();
+  vm$!: Observable<Vm<Product[]>>;
  
   private sub = new Subscription();
 
@@ -44,11 +48,32 @@ export class ProductsComponent implements AfterViewInit, OnDestroy, OnInit {
     this.cart.add(product, 1);
   }
 
+  reload() {
+    this.reload$.next();
+  }
+
   ngOnInit() {
-    this.products$ = this.route.queryParamMap.pipe(
+    const query$ = this.route.queryParamMap.pipe(
       map(params => (params.get('query') ?? '').trim()),
-      distinctUntilChanged(),
-      switchMap(q => q ? this.productService.search(q) : this.productService.getAllProducts())
+      distinctUntilChanged()
+    );
+
+    const trigger$ = merge(
+      query$,
+      this.reload$.pipe(
+        withLatestFrom(query$),
+        map(([, q]) => q)
+      )
+    );
+
+    this.vm$ = trigger$.pipe(
+      switchMap(p => 
+        (p ? this.productService.search(p) : this.productService.getAllProducts()).pipe(
+          map(data => ({ loading: false, data })),
+          startWith({ loading: true }),
+          catchError((error) => of({ loading: false, error }))
+        )
+      )
     );
   }
 
