@@ -6,10 +6,11 @@ import { AsyncPipe} from '@angular/common';
 import { Order } from '../../models/order';
 import { Vm } from '../../../../shared/state/view-model';
 import { AppError } from '../../../../core/http/models/app-error';
+import { ErrorStateComponent } from '../../../../shared/ui/error-state/error-state.component';
 
 @Component({
   selector: 'app-orders',
-  imports: [OrderCardComponent, AsyncPipe],
+  imports: [OrderCardComponent, AsyncPipe, ErrorStateComponent],
   templateUrl: './orders.component.html',
   styleUrl: './orders.component.scss'
 })

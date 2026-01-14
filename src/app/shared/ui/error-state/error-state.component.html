@@ -1,0 +1,19 @@
+@if(error) {
+    <div class="error-state">
+        <p>{{ error.code }}</p>
+        <p class="error-details">{{error.message}}</p>
+        <p>{{ userMessage }}</p>
+        @if(error.kind === 'Validation' && fieldErrorEntries.length) {
+            <ul class="field-errors">
+                @for (entry of fieldErrorEntries; track entry[0]) {
+                    <li><strong>{{ entry[0] }}</strong> {{ entry[1] }}</li>
+                }
+            </ul>
+        }
+        @if(showRetry) {
+            <button (click)="retry.emit()">
+                Retry
+            </button>
+        }
+    </div>
+}

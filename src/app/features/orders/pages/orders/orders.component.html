@@ -5,8 +5,10 @@
                 <p>Loading...</p>
             }
             @if(vm.error) {
-                <p>{{ vm.error.message }}</p>
-                <button (click)="reload()">Retry</button>
+                <app-error-state
+                    [error]="vm.error"
+                    (click)="reload()"
+                    ></app-error-state>
             }
 
             @if(!vm.loading && !vm.error && vm.data?.length === 0) {

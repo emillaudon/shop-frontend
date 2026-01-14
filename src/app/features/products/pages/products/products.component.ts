@@ -8,11 +8,13 @@ import { ProductCardComponent } from '../../components/product-card/product-card
 import { ProductService } from '../../data-access/product.service';
 import { CartService } from '../../../cart/data-access/cart.service';
 import { Vm } from '../../../../shared/state/view-model';
+import { AppError } from '../../../../core/http/models/app-error';
+import { ErrorStateComponent } from '../../../../shared/ui/error-state/error-state.component';
 
 @Component({
   selector: 'app-products',
   standalone: true,
-  imports: [ProductCardComponent, CartPanelComponent, AsyncPipe],
+  imports: [ProductCardComponent, CartPanelComponent, AsyncPipe, ErrorStateComponent],
   templateUrl: './products.component.html',
   styleUrl: './products.component.scss'
 })
@@ -34,8 +36,6 @@ export class ProductsComponent implements AfterViewInit, OnDestroy, OnInit {
   vm$!: Observable<Vm<Product[]>>;
  
   private sub = new Subscription();
-
-  products$!: Observable<Product[]>;
 
   trackById = (_: number, p: Product) => p.id;
   private cart = inject(CartService);
@@ -71,7 +71,7 @@ export class ProductsComponent implements AfterViewInit, OnDestroy, OnInit {
         (p ? this.productService.search(p) : this.productService.getAllProducts()).pipe(
           map(data => ({ loading: false, data })),
           startWith({ loading: true }),
-          catchError((error) => of({ loading: false, error }))
+          catchError((error: AppError) => of({ loading: false, error }))
         )
       )
     );
