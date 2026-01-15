@@ -53,7 +53,7 @@ export class CartPanelComponent implements OnInit {
     this.cart.increaseAmount(prodctId);
   }
 
-  async createOrder() {
+  createOrder() {
     this.submit$.next();
   }
 }
