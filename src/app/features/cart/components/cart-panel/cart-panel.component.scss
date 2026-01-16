@@ -1,54 +1,112 @@
 .panel {
-    padding: 24px;
-    display: flex;
-    flex: 1;
-    width: 100%;
-    flex-direction: column;
+  padding: 24px;
+  display: flex;
+  flex: 1;
+  width: 100%;
+  flex-direction: column;
+  background-color: var(--cart-bg);
+}
+
+.panel__header {
+  align-items: center;
+  text-align: center;
 }
 
 :host {
-    display: flex;
-    width: 100%;
+  display: flex;
+  width: 100%;
 }
 
-.items {
-    overflow-y: auto;
-    overflow-x: hidden;
+.cart-empty {
+  display: flex;
+  margin: 0 auto;
+  background: radial-gradient(
+      circle at 30% 30%,
+      rgba(46, 125, 50, 0.18),
+      transparent 60%
+    ),
+    rgba(0, 0, 0, 0.03);
+  align-items: center;
+  justify-content: center;
+  height: 150px;
+  width: 150px;
+  border-radius: 9999px;
 }
 
-.titles {
-    display: flex;
-    justify-content: space-between;
-    font-weight: bold;
+.panel__items {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  min-height: 0;
 }
 
-.item {
-    display: flex;
-    padding: 16px;
-    border-bottom: thin groove gray;
-    flex-direction: row;
-    justify-content: space-between;
+.panel__footer {
+  width: 100%;
+  border-top: thin dashed gray;
+  margin-top: auto;
+  align-items: center;
+  flex-direction: column;
+  display: flex;
+  padding-top: 10px;
 }
 
-.quantity {
-    display: flex;
-    flex-direction: row;
-}
-
-.footer {
-    width: 100%;
-    border-top: thin dashed gray;
-    margin-top: auto;
-    align-items: center;
-    flex-direction: column;
-    display: flex;
+.total,
+.meta {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: 10px 0;
 }
 
 .total {
-    padding: 20px;
+  font-weight: 850;
+  line-height: 0;
+}
+
+.meta {
+  font-size: 13px;
+  opacity: 0.6;
+}
+
+.item-count {
+  opacity: 0.6;
 }
 
 .checkout-button {
-    background-color: #33a74d;
-    color: white;
+  margin-top: auto;
+  padding: 14px;
+  width: 100%;
+  color: white;
+  background-color: var(--nav-bg);
+  border-radius: var(--radius-sm);
+  align-self: center;
+
+  cursor: pointer;
+  border: none !important;
+  outline: none !important;
+
+  transition: transform 80ms ease, filter 80ms ease;
+}
+.checkout-button:hover {
+  transform: translateY(-1px);
+  filter: brightness(0.95);
+}
+
+.checkout-button:active {
+  transform: translateY(0);
+  filter: brightness(0.9);
+}
+
+.checkout-button:focus-visible {
+  outline: 3px solid rgba(0, 0, 0, 0.2);
+  outline-offset: 2px;
+}
+
+.items app-cart-item {
+  display: block;
+  width: 100%;
 }

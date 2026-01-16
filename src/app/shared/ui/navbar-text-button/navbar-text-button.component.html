@@ -1,2 +1,6 @@
-<a class="text__button" [routerLink]="to" routerLinkActive="active"> {{ label }} </a>
-   
+<a 
+    class="text__button" 
+    [routerLink]="to" 
+    routerLinkActive="active"
+    [routerLinkActiveOptions]="{ exact: true }">
+    {{ label }} </a>

@@ -3,31 +3,62 @@
     top: 0;
     z-index: 100;
     width: 100%;
-    background: #33a74d;
+    background: var(--nav-bg);
 }
 
 .nav__inner {
-    margin: 0 auto;
-    padding: 12px 24px; 
-    min-height: 64px;
+    height: 64px;
     display: flex;
     align-items: center;
     justify-content: space-between;
+    padding: 0 24px;
     gap: 16px;
 }   
 
 .nav__left, .nav__center, .nav__right {
     display: flex;
-    align-items: flex-start;
-    gap: 12px;
 }
 
 .nav__left {
-    align-items: left;
+    display: flex;
+    flex: 1;
+    align-items: center;
 }
 
 .nav__center {
-    flex: 1;
+    display: inline-flex;
+    gap: 20px;
+    min-width: 280px;
     justify-content: center;
+    white-space: nowrap;
 }
 
+.nav__right {
+    flex: 1;
+    justify-content: flex-end;
+}
+
+@media (max-width: 700px) {
+  .nav__inner {
+    height: auto;
+    padding: 12px 16px;
+    flex-wrap: wrap;
+    row-gap: 10px;
+  }
+
+  .nav__left {
+    flex: 1 0 100%;
+  }
+
+  .nav__center {
+    flex: 1 0 auto;
+    min-width: 0;
+    white-space: nowrap;
+    justify-content: center;
+  }
+
+  .nav__right {
+    flex: 0 0 auto;
+    margin-left: auto;
+  }
+}

@@ -1,21 +1,43 @@
-::before, ::after {
-    box-sizing: border-box;
+::before,
+::after {
+  box-sizing: border-box;
 }
 
-html, body {
-    height: 100%;
-    margin: 0;
-    padding: 0;
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
 }
 
 body {
-    overflow-x: hidden;
-    overflow-y: scroll;
+  font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, Arial,
+    sans-serif;
+  letter-spacing: -0.01em;
+
+  overflow-x: hidden;
+  overflow-y: scroll;
 }
 
 app-root {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
 
+:root {
+  --topbar-bg: #2a2a2a;
+  --nav-bg: #33a74d;
+  --page-bg: #f4f4f6;
+
+  --cart-bg: white;
+
+  --card-bg: white;
+
+  --radius: 12px;
+  --radius-sm: 8px;
+
+  --space-4: 16px;
+
+  --shadow-1: 0 4px 12px rgba(0, 0, 0, 0.12);
+}

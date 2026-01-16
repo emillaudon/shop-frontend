@@ -1,0 +1,22 @@
+<div class="item">
+  <div class="item__header">
+    <p class="item__name">{{ item.name }}</p>
+    <p class="item__price">${{ item.price }}</p>
+  </div>
+
+  <div class="item-box">
+    <div class="image-box">
+      <img
+        class="item-image"
+        alt="Product image"
+        src="/assets/product-placeholder.png"
+      />
+    </div>
+
+    <div class="quantity">
+      <button (click)="onDecrease()">-</button>
+      <p class="item__quantity">{{ item.quantity }}</p>
+      <button (click)="onIncrease()">+</button>
+    </div>
+  </div>
+</div>

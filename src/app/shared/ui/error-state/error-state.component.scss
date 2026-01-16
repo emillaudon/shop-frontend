@@ -1,13 +1,42 @@
 .error-state {
-    display: flex;
-    align-items: center;
-    flex-direction: column;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
 }
 
 .error-details {
-    font-size: x-small;
+  font-size: x-small;
 }
 
 p {
-    text-align: center;
+  text-align: center;
+}
+
+.retry-button {
+  padding: 14px;
+  width: 200px;
+  color: white;
+  background-color: var(--nav-bg);
+  border-radius: var(--radius-sm);
+  align-self: center;
+
+  cursor: pointer;
+  border: none !important;
+  outline: none !important;
+
+  transition: transform 80ms ease, filter 80ms ease;
+}
+.retry-button:hover {
+  transform: translateY(-1px);
+  filter: brightness(0.95);
+}
+
+.retry-button:active {
+  transform: translateY(0);
+  filter: brightness(0.9);
+}
+
+.retry-button:focus-visible {
+  outline: 3px solid rgba(0, 0, 0, 0.2);
+  outline-offset: 2px;
 }

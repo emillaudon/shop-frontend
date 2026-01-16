@@ -1,48 +1,51 @@
 <div class="panel">
-    <h3>Cart</h3>
-    @if(submitVm$ | async; as submit) {
-        @if(submit.loading) {
-            <p>Loading...</p>
-        }
-        @if(submit.error) {
-            <app-error-state
-                [error]="submit.error"
-                (retry)="createOrder()"
-            ></app-error-state>
-        }
-
-        @if(items$ | async; as items) {
-            @if(!submit.loading && !submit.error && items.length === 0) {
-                <p>Cart is empty!</p>
-            } @else {
-                <div class="items">
-                    <div class="titles">
-                        <p>Name</p>
-                        <p>Amount</p>
-                        <p>Price</p>
-                    </div>
-                    @for (i of items; track $index) {
-                        <div class="item">
-                        <p>{{ i.name }}</p>
-                        <div class="quantity">
-                            <button (click)="decreaseQuantityOf(i.productId)">-</button>
-                            <p>{{ i.quantity }}</p>
-                            <button (click)="increaseQuantityOf(i.productId)">+</button>
-                        </div>
-                        <p>{{ i.price }}</p>
-                    </div>
-                    }
-                </div>
-            }
-        }
-    }
-
-    <div class="footer">
-        <div class="total">Total: ${{ total$ | async }} Items: {{ itemCount$ | async}}</div>
-        <button 
-            (click)="createOrder()" 
-            class="checkout-button"
-            [disabled]="(submitVm$ | async)?.loading || (items$ | async)?.length === 0"
-            >Checkout</button>
+  <div class="panel__header">
+    <h2>Cart</h2>
+  </div>
+  <div class="panel__items">
+    @if(submitVm$ | async; as submit) { @if(submit.loading) {
+    <p>Loading...</p>
+    } @if(submit.error) {
+    <app-error-state
+      [error]="submit.error"
+      (retry)="createOrder()"
+    ></app-error-state>
+    } @if(items$ | async; as items) { @if(!submit.loading && !submit.error &&
+    items.length === 0) {
+    <div class="cart-empty">
+      <p>Cart is empty!</p>
     </div>
+
+    } @else {
+    <div class="items">
+      @for (i of items; track $index) {
+      <app-cart-item
+        [item]="i"
+        (decrease)="decreaseQuantityOf($event)"
+        (increase)="increaseQuantityOf($event)"
+      />
+      }
+    </div>
+    } } }
+  </div>
+
+  <div class="panel__footer">
+    <div class="total">
+      <span>Total</span>
+      <span>${{ total$ | async }}</span>
+    </div>
+    <div class="meta">
+      <span>Items</span>
+      <span class="item-count">{{ itemCount$ | async }}</span>
+    </div>
+    <button
+      (click)="createOrder()"
+      class="checkout-button"
+      [disabled]="
+        (submitVm$ | async)?.loading || (items$ | async)?.length === 0
+      "
+    >
+      Checkout
+    </button>
+  </div>
 </div>

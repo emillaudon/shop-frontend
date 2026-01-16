@@ -1,22 +1,40 @@
 <article class="card">
-    <div class="card__top">
-        <p>Order {{order.id}}</p>
-        <p>{{ order.createdAt }}</p>
+  <div class="card__top" (click)="toggle()" role="button" tabindex="0">
+    <div class="order-data">
+      <p class="order-id">Order #{{ order.id }}</p>
+      <p class="order-date">{{ formatDate(order.createdAt) }}</p>
     </div>
-    <div class="titles">
-        <p>Quantity</p>
-        <p>Total</p>
-        <p>Status</p>
+    <div class="order__top__right">
+      <div class="order-status">
+        <span [class]="statusClass(order.status)">{{ order.status }}</span>
+      </div>
+      <span class="chevron" [class.open]="isOpen">❯</span>
     </div>
-    <div class="card__inner">
-        <div class="card__start">
-            {{ order.items.length }} Items
+  </div>
+  <div class="card__mid" [class.open]="isOpen">
+    @if (isOpen) {
+    <div class="items">
+      @for (item of order.items; track $index) {
+      <div class="item-row">
+        <div class="thumb">
+          <img src="/assets/product-placeholder.png" alt="product image" />
         </div>
-        <div class="card__mid">
-            ${{ order.getTotalOrderValue() }}
+
+        <div class="meta">
+          <div class="name-row">
+            <div class="name">{{ item.id }}</div>
+            <div class="line-total">${{ item.quantity * item.price }}</div>
+          </div>
+
+          <div class="sub">{{ item.quantity }} x ${{ item.price }}</div>
         </div>
-        <div class="card__end">
-            {{ order.status }}
-        </div>
+      </div>
+      }
     </div>
+    }
+  </div>
+  <div class="card__footer">
+    <p class="total-r">Total</p>
+    <p class="total">${{ order.getTotalOrderValue() }}</p>
+  </div>
 </article>

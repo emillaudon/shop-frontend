@@ -1,25 +1,18 @@
 <section class="orders-page">
-    <div class="orders-column">
-        @if(vm$ | async; as vm) {
-            @if(vm.loading) {
-                <p>Loading...</p>
-            }
-            @if(vm.error) {
-                <app-error-state
-                    [error]="vm.error"
-                    (click)="reload()"
-                    ></app-error-state>
-            }
-
-            @if(!vm.loading && !vm.error && vm.data?.length === 0) {
-                <p>No Orders Found</p>
-            }
-
-            @for (o of (vm.data ?? []); track o.id) {
-                <app-order-card
-                    [order]="o"
-                ></app-order-card>
-            }
-        }        
+  <div class="orders-column">
+    <h2>Order History</h2>
+    @if(vm$ | async; as vm) { @if(vm.loading) {
+    <p>Loading...</p>
+    } @if(vm.error) {
+    <app-error-state [error]="vm.error" (click)="reload()"></app-error-state>
+    } @if(!vm.loading && !vm.error && vm.data?.length === 0) {
+    <div class="no-orders">
+      <h3>No Orders Found</h3>
+      <p>When you place and order it will show up here.</p>
     </div>
+
+    } @for (o of (vm.data ?? []); track o.id) {
+    <app-order-card [order]="o"></app-order-card>
+    } }
+  </div>
 </section>

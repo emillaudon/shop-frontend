@@ -1,15 +1,16 @@
 <article class="card">
-    <div class="card__inner">
-        <div class="card__top">
-            IMAGE
-        </div>
-        <div class="card__mid">
-            {{ product.name }}
-        </div>
-        <div class="card__bottom">
-            ${{ product.price }}
-        </div>
-        <button (click)="onClick()">Buy</button>
+  <div class="card__inner">
+    <div class="card__top">
+      <img
+        class="card__image"
+        alt="Product image"
+        src="/assets/product-placeholder.png"
+      />
     </div>
+    <div class="card__mid">
+      {{ product.name }}
+    </div>
+    <div class="price">${{ product.price }}</div>
+    <button class="card__button" (click)="onClick()">Add To cart</button>
+  </div>
 </article>
-

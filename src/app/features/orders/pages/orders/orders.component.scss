@@ -1,8 +1,19 @@
 .orders-page {
-    flex: 1;
-    width: 100%;
-    display: flex;
-    justify-content: center;
+  flex: 1;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  background-color: var(--page-bg);
+}
+
+.orders-column {
+  max-width: 720px;
+  width: 100%;
+  padding: 0px 16px;
+}
+
+.no-orders {
+  text-align: center;
 }
 
 :host {
