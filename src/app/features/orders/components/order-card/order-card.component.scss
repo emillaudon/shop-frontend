@@ -17,6 +17,7 @@ p {
 }
 
 .card__top {
+  all: unset;
   justify-content: space-between;
   display: flex;
   cursor: pointer;

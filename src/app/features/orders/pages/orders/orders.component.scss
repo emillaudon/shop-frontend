@@ -53,7 +53,7 @@
 
 .order-skeleton__top {
   display: flex;
-  justify-content: space-between; /* som card__top */
+  justify-content: space-between;
   align-items: flex-start;
   gap: 10px;
 }
@@ -61,12 +61,12 @@
 .order-skeleton__left {
   display: flex;
   flex-direction: column;
-  gap: 4px; /* som order-data */
+  gap: 4px;
 }
 
 .order-skeleton__right {
   display: flex;
-  gap: 10px; /* som order__top__right */
+  gap: 10px;
   align-items: center;
 }
 
@@ -74,10 +74,9 @@
   margin-top: 10px;
 }
 
-/* Footer */
 .order-skeleton__footer {
   display: flex;
-  justify-content: space-between; /* som card__footer */
+  justify-content: space-between;
   align-items: center;
   margin-top: auto;
   border-top: 1px solid rgba(0, 0, 0, 0.08);

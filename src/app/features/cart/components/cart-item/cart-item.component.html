@@ -14,9 +14,9 @@
     </div>
 
     <div class="quantity">
-      <button (click)="onDecrease()">-</button>
+      <button (click)="onDecrease()" aria-label="Decrease quantity">-</button>
       <p class="item__quantity">{{ item.quantity }}</p>
-      <button (click)="onIncrease()">+</button>
+      <button (click)="onIncrease()" aria-label="Increase quantity">+</button>
     </div>
   </div>
 </div>

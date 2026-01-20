@@ -10,9 +10,7 @@ export class ProductService {
   private http = inject(HttpClient);
 
   getAllProducts(): Observable<Product[]> {
-    return this.http.get<Product[]>('/api/products').pipe(
-      delay(3000) // 3 sek
-    );
+    return this.http.get<Product[]>('/api/products').pipe(delay(1000));
     return this.http.get<Product[]>('/api/products');
   }
 

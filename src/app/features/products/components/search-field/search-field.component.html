@@ -1,9 +1,10 @@
 <form class="search" (submit)="$event.preventDefault(); submit()">
-    <span class="material-icons search__icon">search</span>
-    <input 
-        type="text" 
-        placeholder="Search for products..."
-        [(ngModel)]="value"
-        name="q"
-    />
+  <span class="material-icons search__icon">search</span>
+  <input
+    type="text"
+    placeholder="Search for products..."
+    [(ngModel)]="value"
+    name="q"
+    aria-label="Search for products..."
+  />
 </form>

@@ -1,5 +1,5 @@
 <article class="card">
-  <div class="card__top" (click)="toggle()" role="button" tabindex="0">
+  <button class="card__top" (click)="toggle()" role="button" tabindex="0">
     <div class="order-data">
       <p class="order-id">Order #{{ order.id }}</p>
       <p class="order-date">{{ formatDate(order.createdAt) }}</p>
@@ -10,7 +10,7 @@
       </div>
       <span class="chevron" [class.open]="isOpen">❯</span>
     </div>
-  </div>
+  </button>
   <div class="card__mid" [class.open]="isOpen">
     @if (isOpen) {
     <div class="items">

@@ -1,4 +1,4 @@
-<button class="cart" (click)="toggle()">
-    <span class="cart__icon">🛒</span>
-    <span class="cart__badge">{{ cartCount$ | async }}</span>
-</button>   
+<button class="cart" (click)="toggle()" aria-label="Toggle Cart">
+  <span class="cart__icon">🛒</span>
+  <span class="cart__badge">{{ cartCount$ | async }}</span>
+</button>
