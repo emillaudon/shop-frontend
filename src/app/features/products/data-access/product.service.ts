@@ -1,17 +1,19 @@
 import { inject, Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { delay, Observable } from 'rxjs';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Product } from '../models/product';
 
-
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ProductService {
   private http = inject(HttpClient);
 
   getAllProducts(): Observable<Product[]> {
-    return this.http.get<Product[]>('/api/products')
+    return this.http.get<Product[]>('/api/products').pipe(
+      delay(3000) // 3 sek
+    );
+    return this.http.get<Product[]>('/api/products');
   }
 
   search(query: string): Observable<Product[]> {

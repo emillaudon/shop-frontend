@@ -1,9 +1,27 @@
 <section class="orders-page">
   <div class="orders-column">
     <h2>Order History</h2>
-    @if(vm$ | async; as vm) { @if(vm.loading) {
-    <p>Loading...</p>
-    } @if(vm.error) {
+    @if(vm$ | async; as vm) { @if(vm.loading) { @for (_ of [1,2,3,4,5,6,7];
+    track $index) {
+    <article class="order-skeleton">
+      <div class="order-skeleton__top">
+        <div class="order-skeleton__left">
+          <div class="skeleton-line-order-id skeleton"></div>
+          <div class="skeleton-line-order-date skeleton"></div>
+        </div>
+
+        <div class="order-skeleton__right">
+          <div class="order-skeleton__status skeleton"></div>
+          <div class="order-skeleton__chevron skeleton"></div>
+        </div>
+      </div>
+      <div class="order-skeleton__mid"></div>
+      <div class="order-skeleton__footer">
+        <div class="skeleton-line-total skeleton"></div>
+        <div class="skeleton-line-value skeleton"></div>
+      </div>
+    </article>
+    } } @if(vm.error) {
     <app-error-state [error]="vm.error" (click)="reload()"></app-error-state>
     } @if(!vm.loading && !vm.error && vm.data?.length === 0) {
     <div class="no-orders">
