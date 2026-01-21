@@ -1,43 +1,40 @@
-import { OrderItem } from "../../cart/models/order-item";
+import { OrderItem } from '../../cart/models/order-item';
 
 export interface CreateOrderItemRequest {
-    productId: number;
-    quantity: number;
+  productId: number;
+  quantity: number;
 }
 
 export interface CreateOrderRequest {
-    items: CreateOrderItemRequest[];
+  items: CreateOrderItemRequest[];
 }
 
 export interface OrderItemDto {
-    productId: number;
-    quantity: number;
-    unitPrice: number;
+  productId: number;
+  quantity: number;
+  unitPrice: number;
+  imageUrl?: string | null;
 }
 
 export interface OrderDto {
-    id: number;
-    createdAt: string;
-    status: string;
-    items: OrderItemDto[];
+  id: number;
+  createdAt: string;
+  status: string;
+  items: OrderItemDto[];
 }
 
 export class Order {
+  constructor(
+    public id: number,
+    public createdAt: string,
+    public status: string,
+    public items: OrderItem[],
+  ) {}
 
-    constructor(
-        public id: number,
-        public createdAt: string,
-        public status: string,
-        public items: OrderItem[],
-    ) {
-
-    }
-
-    getTotalOrderValue() {
-        return this.items.reduce(
-            (total, item) => total + item.quantity * item.price,
-            0
-        );
-    }
-
+  getTotalOrderValue() {
+    return this.items.reduce(
+      (total, item) => total + item.quantity * item.price,
+      0,
+    );
+  }
 }

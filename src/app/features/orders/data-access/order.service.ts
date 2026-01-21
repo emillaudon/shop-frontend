@@ -21,11 +21,17 @@ export class OrderService {
               dto.createdAt,
               dto.status,
               dto.items.map(
-                (i) => new OrderItem(i.productId, i.quantity, i.unitPrice)
-              )
-            )
-        )
-      )
+                (i) =>
+                  new OrderItem(
+                    i.productId,
+                    i.quantity,
+                    i.unitPrice,
+                    i.imageUrl,
+                  ),
+              ),
+            ),
+        ),
+      ),
     );
 
     return this.http.get<OrderDto[]>('/api/orders').pipe(
@@ -37,11 +43,11 @@ export class OrderService {
               dto.createdAt,
               dto.status,
               dto.items.map(
-                (i) => new OrderItem(i.productId, i.quantity, i.unitPrice)
-              )
-            )
-        )
-      )
+                (i) => new OrderItem(i.productId, i.quantity, i.unitPrice),
+              ),
+            ),
+        ),
+      ),
     );
   }
 

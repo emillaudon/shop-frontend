@@ -13,32 +13,32 @@
   </button>
   <div class="card__mid" [class.open]="isOpen">
     @if (isOpen) {
-    <div class="items">
-      @for (item of order.items; track $index) {
-      <div class="item-row">
-        <div class="thumb">
-          <img
-            [src]="
-              (item.imageUrl ?? '/assets/product-placeholder.png') +
-              '?v=' +
-              '-' +
-              '1'
-            "
-            alt="product image"
-          />
-        </div>
+      <div class="items">
+        @for (item of order.items; track $index) {
+          <div class="item-row">
+            <div class="thumb">
+              <img
+                [src]="
+                  (item.imageUrl ?? '/assets/product-placeholder.png') +
+                  '?v=' +
+                  '-' +
+                  '1'
+                "
+                alt="product image"
+              />
+            </div>
 
-        <div class="meta">
-          <div class="name-row">
-            <div class="name">{{ item.id }}</div>
-            <div class="line-total">${{ item.quantity * item.price }}</div>
+            <div class="meta">
+              <div class="name-row">
+                <div class="name">{{ item.id }}</div>
+                <div class="line-total">${{ item.quantity * item.price }}</div>
+              </div>
+
+              <div class="sub">{{ item.quantity }} x ${{ item.price }}</div>
+            </div>
           </div>
-
-          <div class="sub">{{ item.quantity }} x ${{ item.price }}</div>
-        </div>
+        }
       </div>
-      }
-    </div>
     }
   </div>
   <div class="card__footer">
