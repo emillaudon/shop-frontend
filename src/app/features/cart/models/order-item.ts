@@ -1,7 +1,8 @@
 export class OrderItem {
-    constructor(
-        public id: number,
-        public quantity: number,
-        public price: number
-    ){}
+  constructor(
+    public id: number,
+    public quantity: number,
+    public price: number,
+    public imageUrl?: string | null
+  ) {}
 }

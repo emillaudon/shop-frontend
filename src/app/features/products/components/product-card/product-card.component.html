@@ -4,7 +4,13 @@
       <img
         class="card__image"
         alt="Product image"
-        src="/assets/product-placeholder.png"
+        [src]="
+          (product.imageUrl ?? '/assets/product-placeholder.png') +
+          '?v=' +
+          product.id +
+          '-' +
+          '1'
+        "
       />
     </div>
     <div class="card__mid">

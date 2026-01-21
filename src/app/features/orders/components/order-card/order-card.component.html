@@ -17,7 +17,15 @@
       @for (item of order.items; track $index) {
       <div class="item-row">
         <div class="thumb">
-          <img src="/assets/product-placeholder.png" alt="product image" />
+          <img
+            [src]="
+              (item.imageUrl ?? '/assets/product-placeholder.png') +
+              '?v=' +
+              '-' +
+              '1'
+            "
+            alt="product image"
+          />
         </div>
 
         <div class="meta">

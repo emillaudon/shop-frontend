@@ -9,7 +9,12 @@
       <img
         class="item-image"
         alt="Product image"
-        src="/assets/product-placeholder.png"
+        [src]="
+          (item.imageUrl ?? '/assets/product-placeholder.png') +
+          '?v=' +
+          '-' +
+          '1'
+        "
       />
     </div>
 

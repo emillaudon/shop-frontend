@@ -12,7 +12,7 @@ export class OrderService {
 
   getAllOrders() {
     return this.http.get<OrderDto[]>('/api/orders').pipe(
-      delay(1000), // ⏱ 2 sek fejk-laddning
+      delay(1000),
       map((dtos) =>
         dtos.map(
           (dto) =>

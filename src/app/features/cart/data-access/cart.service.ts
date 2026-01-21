@@ -4,7 +4,7 @@ import { CartItem } from '../models/cart-item';
 import { Product } from '../../products/models/product';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class CartService {
   private readonly itemsSubject = new BehaviorSubject<CartItem[]>([]);
@@ -26,11 +26,11 @@ export class CartService {
   }
 
   readonly count$ = this.items$.pipe(
-    map(items => items.reduce((sum, i) => sum + i.quantity, 0))
+    map((items) => items.reduce((sum, i) => sum + i.quantity, 0))
   );
 
   readonly total$ = this.items$.pipe(
-    map(items => items.reduce((sum, i) => sum + i.quantity * i.price, 0))
+    map((items) => items.reduce((sum, i) => sum + i.quantity * i.price, 0))
   );
 
   getItemsSnapshot() {
@@ -39,13 +39,11 @@ export class CartService {
 
   add(product: Product, qty = 1) {
     const items = this.itemsSubject.value;
-    const existing = items.find(i => i.productId === product.id);
+    const existing = items.find((i) => i.productId === product.id);
 
     if (existing) {
-      const updated = items.map(i => 
-        i.productId === product.id
-        ? { ...i, quantity: i.quantity + qty }
-        : i
+      const updated = items.map((i) =>
+        i.productId === product.id ? { ...i, quantity: i.quantity + qty } : i
       );
       this.itemsSubject.next(updated);
       return;
@@ -53,28 +51,32 @@ export class CartService {
 
     this.itemsSubject.next([
       ...items,
-      { productId: product.id, name: product.name, price: product.price, quantity: qty }
+      {
+        productId: product.id,
+        name: product.name,
+        price: product.price,
+        quantity: qty,
+        imageUrl: product.imageUrl ?? null,
+      },
     ]);
-  };
+  }
 
   decreaseAmount(productId: number) {
     const items = this.itemsSubject.value;
 
-    const updated = items.map(i => 
-      i.productId === productId
-      ? { ...i, quantity: i.quantity - 1 }
-      : i
-    ).filter(i => i.quantity > 0);
+    const updated = items
+      .map((i) =>
+        i.productId === productId ? { ...i, quantity: i.quantity - 1 } : i
+      )
+      .filter((i) => i.quantity > 0);
     this.itemsSubject.next(updated);
   }
 
   increaseAmount(productId: number) {
     const items = this.itemsSubject.value;
 
-    const updated = items.map(i => 
-      i.productId === productId
-      ? { ...i, quantity: i.quantity + 1 }
-      : i
+    const updated = items.map((i) =>
+      i.productId === productId ? { ...i, quantity: i.quantity + 1 } : i
     );
     this.itemsSubject.next(updated);
   }
@@ -82,7 +84,7 @@ export class CartService {
   remove(productId: number) {
     const items = this.itemsSubject.value;
 
-    const updated = items.filter(i => i.productId !== productId);
+    const updated = items.filter((i) => i.productId !== productId);
 
     this.itemsSubject.next(updated);
   }
