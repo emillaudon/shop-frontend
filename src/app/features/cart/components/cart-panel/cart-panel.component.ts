@@ -5,6 +5,7 @@ import {
   map,
   Observable,
   of,
+  shareReplay,
   startWith,
   Subject,
   switchMap,
@@ -52,10 +53,11 @@ export class CartPanelComponent implements OnInit {
           }),
           map(() => ({ loading: false })),
           startWith({ loading: true }),
-          catchError((error: AppError) => of({ loading: false, error }))
+          catchError((error: AppError) => of({ loading: false, error })),
         );
       }),
-      startWith({ loading: false })
+      startWith({ loading: false }),
+      shareReplay({ bufferSize: 1, refCount: true }),
     );
   }
 

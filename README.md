@@ -20,6 +20,10 @@ best practices, and maintainable frontend code.
 
 ![Order history](screenshots/orders.png)
 
+### Login Page
+
+![Login page](screenshots/login.png)
+
 ---
 
 ## Tech Stack

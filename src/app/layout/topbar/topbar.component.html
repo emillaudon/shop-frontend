@@ -4,12 +4,18 @@
       <img class="logo" src="/assets/shop-logo.png" alt="LOGO" />
     </div>
     <div class="top__right">
-      <img
-        class="account-button"
-        alt="ACCOUNT"
-        src="/assets/person.png"
-        aria-label="Go to account page"
-      />
+      <a
+        routerLink="/login"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: true }"
+      >
+        <img
+          class="account-button"
+          alt="ACCOUNT"
+          src="/assets/person.png"
+          aria-label="Go to account page"
+        />
+      </a>
       <span class="material-icons">person</span>
     </div>
   </div>

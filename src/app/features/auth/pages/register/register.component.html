@@ -1,0 +1,48 @@
+<div class="register-page">
+  <div class="register-component">
+    <div class="register">
+      <h1>Create an Account</h1>
+      <h3>Please fill in the form to create an account</h3>
+    </div>
+    <div class="register">
+      <form
+        #registerForm="ngForm"
+        class="register-form"
+        (ngSubmit)="onSubmit()"
+      >
+        <div class="userinfo-input">
+          <input
+            type="email"
+            placeholder="Email"
+            name="email"
+            aria-label="Email"
+            [(ngModel)]="email"
+          />
+          <input
+            type="password"
+            placeholder="Password"
+            name="password"
+            aria-label="Password"
+            [(ngModel)]="password"
+          />
+        </div>
+        <button
+          class="signup-button"
+          type="submit"
+          [disabled]="registerForm.invalid"
+        >
+          Sign Up
+        </button>
+      </form>
+      <a
+        class="signin-button"
+        routerLink="/login"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: true }"
+      >
+        <p>Already have an account?</p>
+        <p class="signin-text">Sign In</p>
+      </a>
+    </div>
+  </div>
+</div>
