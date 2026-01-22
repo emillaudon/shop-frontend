@@ -1,13 +1,24 @@
 # Shop Frontend
 
-An Angular frontend for a simple shop application, built to work together with the
-Shop Backend:
+An Angular frontend for a simple shop application, built to work together with the Shop Backend:
 https://github.com/emillaudon/shop-backend
 
-This project is built as a learning and portfolio project with a strong focus on
-clean architecture, best practices, and maintainable frontend code.
+This project is built as a learning and portfolio project with a strong focus on clean architecture,
+best practices, and maintainable frontend code.
 
-> ⚠️ This project is still under active development.
+⚠️ This project is still under active development.
+
+---
+
+## Screenshots
+
+### Product Catalog & Shopping Cart
+
+![Product catalog and cart](screenshots/products.png)
+
+### Order History
+
+![Order history](screenshots/orders.png)
 
 ---
 
@@ -24,10 +35,10 @@ clean architecture, best practices, and maintainable frontend code.
 
 ## Features
 
-- Product listing
-- Product search
+- Product listing and search
 - Shopping cart with reactive state
 - Order creation
+- Order history with order status (CREATED, PAID, SHIPPED, CANCELLED)
 - Feature-based Angular architecture
 - Clean separation of UI, data access, and domain logic
 
@@ -35,24 +46,14 @@ clean architecture, best practices, and maintainable frontend code.
 
 ## Project Structure
 
-The frontend follows a feature-based architecture:
-
 src/app  
-├─ core/ App-wide configuration and core services  
+├─ core/  
 ├─ features/  
 │ ├─ products/  
-│ │ ├─ pages/  
-│ │ ├─ components/  
-│ │ └─ data-access/  
-│ ├─ orders/  
-│ └─ cart/  
+│ ├─ cart/  
+│ └─ orders/  
 ├─ shared/  
-│ ├─ ui/  
-│ └─ models/  
 └─ layout/
-
-This structure is designed to scale well and keep features isolated and easy to
-maintain.
 
 ---
 
@@ -87,7 +88,6 @@ Make sure the backend is running for full functionality.
 ## Backend
 
 The backend for this project is implemented in Spring Boot:
-
 https://github.com/emillaudon/shop-backend
 
 ---
@@ -96,17 +96,16 @@ https://github.com/emillaudon/shop-backend
 
 This project demonstrates:
 
-- modern Angular development practices
-- clean frontend architecture
-- fullstack communication with a REST API
-- continuous refactoring and improvement
+- Modern Angular development practices
+- Clean frontend architecture
+- Fullstack communication with a REST API
+- Order lifecycle handling
 
-It is not intended as a production-ready shop, but as a solid learning and portfolio
-project.
+It is intended as a learning and portfolio project.
 
 ---
 
 ## Status
 
-Work in progress.  
+Work in progress.
 New features, refactors, and improvements are added continuously.
