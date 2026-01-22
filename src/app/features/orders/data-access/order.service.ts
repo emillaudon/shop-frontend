@@ -26,24 +26,9 @@ export class OrderService {
                     i.productId,
                     i.quantity,
                     i.unitPrice,
+                    i.productName,
                     i.imageUrl,
                   ),
-              ),
-            ),
-        ),
-      ),
-    );
-
-    return this.http.get<OrderDto[]>('/api/orders').pipe(
-      map((dtos) =>
-        dtos.map(
-          (dto) =>
-            new Order(
-              dto.id,
-              dto.createdAt,
-              dto.status,
-              dto.items.map(
-                (i) => new OrderItem(i.productId, i.quantity, i.unitPrice),
               ),
             ),
         ),

@@ -13,6 +13,7 @@ export interface OrderItemDto {
   productId: number;
   quantity: number;
   unitPrice: number;
+  productName: string;
   imageUrl?: string | null;
 }
 

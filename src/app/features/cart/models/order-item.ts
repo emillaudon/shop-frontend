@@ -3,6 +3,7 @@ export class OrderItem {
     public id: number,
     public quantity: number,
     public price: number,
-    public imageUrl?: string | null
+    public productName: string,
+    public imageUrl: string | null | undefined,
   ) {}
 }
