@@ -45,6 +45,28 @@ export class AuthService {
     this.setToken(null);
   }
 
+  isTokenExpired(token: string): boolean {
+    try {
+      const [, payLoadBase64] = token.split('.');
+      const payloadJson = atob(
+        payLoadBase64.replace(/-/g, '+').replace(/_/g, '/'),
+      );
+      const payload = JSON.parse(payloadJson);
+
+      const exp = payload?.exp;
+      if (!exp) {
+        this.logout();
+        return true;
+      }
+
+      const now = Math.floor(Date.now() / 1000);
+      return exp <= now;
+    } catch {
+      this.logout();
+      return true;
+    }
+  }
+
   private setToken(token: string | null) {
     this.tokenSubject.next(token);
     if (token) localStorage.setItem(TOKEN_KEY, token);

@@ -8,7 +8,7 @@ export const authGuard: CanActivateFn = (route, state) => {
 
   const token = auth.getTokenSnapshot();
 
-  if (token) return true;
+  if (token && !auth.isTokenExpired(token)) return true;
 
   return router.createUrlTree(['/login'], {
     queryParams: { returnUrl: state.url },
