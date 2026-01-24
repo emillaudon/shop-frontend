@@ -1,4 +1,4 @@
-<div class="modal-backdrop" (click)="onBackDropClicked()">
+<button class="modal-backdrop" (click)="onBackDropClicked($event)">
   <div class="modal">
     <h2>Create Product</h2>
     <form (ngSubmit)="onSubmit()">
@@ -37,4 +37,4 @@
       <button class="product-submit-button" type="submit">Submit</button>
     </form>
   </div>
-</div>
+</button>

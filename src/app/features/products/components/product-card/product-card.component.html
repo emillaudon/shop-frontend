@@ -1,5 +1,15 @@
 <article class="card">
   <div class="card__inner">
+    @if (canDelete) {
+      <button
+        type="button"
+        class="delete-button"
+        (click)="onDeleteClick()"
+        aria-label="Delete Product"
+      >
+        ✕
+      </button>
+    }
     <div class="card__top">
       <img
         class="card__image"

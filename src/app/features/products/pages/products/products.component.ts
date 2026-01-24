@@ -122,7 +122,21 @@ export class ProductsComponent implements AfterViewInit, OnDestroy, OnInit {
           });
       },
     });
-    this.closeCreateProductModal();
+  }
+
+  handleDeleteProduct(product: Product) {
+    const deleteImage$ = product.imageUrl
+      ? this.productService
+          .deleteProductImage(product.id)
+          .pipe(catchError(() => of(null)))
+      : of(null);
+
+    deleteImage$
+      .pipe(switchMap(() => this.productService.deleteProduct(product.id)))
+      .subscribe({
+        next: () => this.reload(),
+        error: (err: unknown) => console.error(err),
+      });
   }
 
   reload() {

@@ -34,4 +34,12 @@ export class ProductService {
 
     return this.http.post<Product>(`/api/products/${productId}/image`, fd);
   }
+
+  deleteProduct(productId: number): Observable<void> {
+    return this.http.delete<void>(`/api/products/${productId}`);
+  }
+
+  deleteProductImage(productId: number): Observable<void> {
+    return this.http.delete<void>(`/api/products/${productId}/image`);
+  }
 }

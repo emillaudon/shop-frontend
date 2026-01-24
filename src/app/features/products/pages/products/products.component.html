@@ -28,7 +28,12 @@
         <p>No Products Found</p>
       }
       @for (p of vm.data ?? []; track p.id) {
-        <app-product-card [product]="p" (addToCart)="onAddToCart(p)">
+        <app-product-card
+          [product]="p"
+          (addToCart)="onAddToCart(p)"
+          [canDelete]="(isAdmin$ | async) === true"
+          (deleteProduct)="handleDeleteProduct($event)"
+        >
         </app-product-card>
       }
     }

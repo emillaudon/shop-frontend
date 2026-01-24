@@ -25,7 +25,8 @@ export class CreateProductModalComponent {
   quantity = 0;
   price = 0;
 
-  onBackDropClicked() {
+  onBackDropClicked(event: MouseEvent) {
+    if (event.target !== event.currentTarget) return;
     this.cleanUpPreview();
     this.closeSelf.emit();
   }
@@ -55,7 +56,8 @@ export class CreateProductModalComponent {
 
   @HostListener('document:keydown.escape')
   onEscPressed() {
-    this.onBackDropClicked();
+    this.cleanUpPreview();
+    this.closeSelf.emit();
   }
 
   private cleanUpPreview() {
