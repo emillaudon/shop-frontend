@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, HostListener, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
 export interface CreateProductPayload {
@@ -51,6 +51,11 @@ export class CreateProductModalComponent {
       price: this.price,
       imageFile: this.selectedFile,
     });
+  }
+
+  @HostListener('document:keydown.escape')
+  onEscPressed() {
+    this.onBackDropClicked();
   }
 
   private cleanUpPreview() {

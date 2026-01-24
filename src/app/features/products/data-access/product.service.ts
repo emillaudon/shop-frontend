@@ -17,7 +17,6 @@ export class ProductService {
 
   getAllProducts(): Observable<Product[]> {
     return this.http.get<Product[]>('/api/products').pipe(delay(1000));
-    return this.http.get<Product[]>('/api/products');
   }
 
   search(query: string): Observable<Product[]> {
