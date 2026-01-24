@@ -44,14 +44,16 @@
       (submitCreate)="handleCreateProduct($event)"
     ></app-create-product-modal>
   }
-  <button
-    class="fab"
-    type="button"
-    [class.cart-open]="(cartOpen$ | async) === true"
-    (click)="onCreateProductClick()"
-  >
-    +
-  </button>
+  @if (isAdmin$ | async) {
+    <button
+      class="fab"
+      type="button"
+      [class.cart-open]="(cartOpen$ | async) === true"
+      (click)="onCreateProductClick()"
+    >
+      +
+    </button>
+  }
   <aside
     #panel
     class="cart-panel"
