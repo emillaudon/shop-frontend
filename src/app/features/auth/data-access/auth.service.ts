@@ -10,6 +10,8 @@ interface AuthRequest {
   password: string;
 }
 
+type Role = 'USER' | 'ADMIN';
+
 const TOKEN_KEY = 'auth_token';
 
 @Injectable({
@@ -24,6 +26,9 @@ export class AuthService {
 
   readonly token$ = this.tokenSubject.asObservable();
   readonly isLoggedIn$ = this.token$.pipe(map((t) => !!t));
+  role$ = this.token$.pipe(
+    map((t) => (t ? this.getRoleFromJwt(t) : (null as Role | null))),
+  );
 
   getTokenSnapshot(): string | null {
     return this.tokenSubject.value;
@@ -71,5 +76,24 @@ export class AuthService {
     this.tokenSubject.next(token);
     if (token) localStorage.setItem(TOKEN_KEY, token);
     else localStorage.removeItem(TOKEN_KEY);
+  }
+
+  private getRoleFromJwt(token: string): Role | null {
+    try {
+      const payloadPart = token.split('.')[1];
+      if (!payloadPart) return null;
+
+      const base64 = payloadPart.replace(/-/g, '+').replace(/_/g, '/');
+      const json = decodeURIComponent(
+        atob(base64)
+          .split('')
+          .map((c) => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2))
+          .join(''),
+      );
+      const payload = JSON.parse(json) as { role?: Role };
+      return payload.role ?? null;
+    } catch {
+      return null;
+    }
   }
 }

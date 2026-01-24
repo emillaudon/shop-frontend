@@ -1,7 +1,28 @@
-import { AfterViewInit, Component, ElementRef, HostListener, inject, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  HostListener,
+  inject,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { Product } from '../../models/product';
 import { AsyncPipe } from '@angular/common';
-import { catchError, distinctUntilChanged, map, merge, Observable, of, startWith, Subject, Subscription, switchMap, withLatestFrom } from 'rxjs';
+import {
+  catchError,
+  distinctUntilChanged,
+  map,
+  merge,
+  Observable,
+  of,
+  startWith,
+  Subject,
+  Subscription,
+  switchMap,
+  withLatestFrom,
+} from 'rxjs';
 import { CartPanelComponent } from '../../../cart/components/cart-panel/cart-panel.component';
 import { ActivatedRoute } from '@angular/router';
 import { ProductCardComponent } from '../../components/product-card/product-card.component';
@@ -10,31 +31,40 @@ import { CartService } from '../../../cart/data-access/cart.service';
 import { Vm } from '../../../../shared/state/view-model';
 import { AppError } from '../../../../core/http/models/app-error';
 import { ErrorStateComponent } from '../../../../shared/ui/error-state/error-state.component';
+import { AuthService } from '../../../auth/data-access/auth.service';
 
 @Component({
   selector: 'app-products',
   standalone: true,
-  imports: [ProductCardComponent, CartPanelComponent, AsyncPipe, ErrorStateComponent],
+  imports: [
+    ProductCardComponent,
+    CartPanelComponent,
+    AsyncPipe,
+    ErrorStateComponent,
+  ],
   templateUrl: './products.component.html',
-  styleUrl: './products.component.scss'
+  styleUrl: './products.component.scss',
 })
 export class ProductsComponent implements AfterViewInit, OnDestroy, OnInit {
+  private auth = inject(AuthService);
+  isAdmin$ = this.auth.role$.pipe(map((role) => role === 'ADMIN'));
+
   @ViewChild('panel') panelRef?: ElementRef<HTMLElement>;
 
   @ViewChild('panel')
   set panel(ref: ElementRef<HTMLElement>) {
     this.panelRef = ref;
 
-    if(ref) {
+    if (ref) {
       requestAnimationFrame(() => {
         requestAnimationFrame(() => this.updateHeightOfCart());
       });
     }
   }
-  
+
   private reload$ = new Subject<void>();
   vm$!: Observable<Vm<Product[]>>;
- 
+
   private sub = new Subscription();
 
   trackById = (_: number, p: Product) => p.id;
@@ -43,9 +73,13 @@ export class ProductsComponent implements AfterViewInit, OnDestroy, OnInit {
   private route = inject(ActivatedRoute);
 
   cartOpen$: Observable<boolean> = this.cart.isOpen$;
-  
+
   onAddToCart(product: Product) {
     this.cart.add(product, 1);
+  }
+
+  onCreateProductClick() {
+    //Open modal
   }
 
   reload() {
@@ -54,26 +88,29 @@ export class ProductsComponent implements AfterViewInit, OnDestroy, OnInit {
 
   ngOnInit() {
     const query$ = this.route.queryParamMap.pipe(
-      map(params => (params.get('query') ?? '').trim()),
-      distinctUntilChanged()
+      map((params) => (params.get('query') ?? '').trim()),
+      distinctUntilChanged(),
     );
 
     const trigger$ = merge(
       query$,
       this.reload$.pipe(
         withLatestFrom(query$),
-        map(([, q]) => q)
-      )
+        map(([, q]) => q),
+      ),
     );
 
     this.vm$ = trigger$.pipe(
-      switchMap(p => 
-        (p ? this.productService.search(p) : this.productService.getAllProducts()).pipe(
-          map(data => ({ loading: false, data })),
+      switchMap((p) =>
+        (p
+          ? this.productService.search(p)
+          : this.productService.getAllProducts()
+        ).pipe(
+          map((data) => ({ loading: false, data })),
           startWith({ loading: true }),
-          catchError((error: AppError) => of({ loading: false, error }))
-        )
-      )
+          catchError((error: AppError) => of({ loading: false, error })),
+        ),
+      ),
     );
   }
 
@@ -81,7 +118,7 @@ export class ProductsComponent implements AfterViewInit, OnDestroy, OnInit {
     this.sub.add(
       this.cart.isOpen$.subscribe(() => {
         requestAnimationFrame(() => this.updateHeightOfCart());
-      })
+      }),
     );
 
     requestAnimationFrame(() => this.updateHeightOfCart());
@@ -95,13 +132,12 @@ export class ProductsComponent implements AfterViewInit, OnDestroy, OnInit {
   @HostListener('window:resize')
   updateHeightOfCart() {
     const el = this.panelRef?.nativeElement;
-    if(!el) return;
+    if (!el) return;
     const rectTop = el.getBoundingClientRect().top;
     const vh = window.innerHeight;
 
     const available = Math.max(0, Math.min(vh, vh - rectTop));
 
-    el.style.setProperty('--panel-h', `${available}px`)
-
+    el.style.setProperty('--panel-h', `${available}px`);
   }
 }

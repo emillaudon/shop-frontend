@@ -3,28 +3,44 @@
     class="products-grid"
     [class.cart-is-open]="(cartOpen$ | async) === true"
   >
-    @if(vm$ | async; as vm) { @if(vm.loading) { @for(_ of [1,2,3,4,5,6,7,8];
-    track $index) {
-    <div class="product-skeleton-card">
-      <div class="product-skeleton-img skeleton"></div>
+    @if (vm$ | async; as vm) {
+      @if (vm.loading) {
+        @for (_ of [1, 2, 3, 4, 5, 6, 7, 8]; track $index) {
+          <div class="product-skeleton-card">
+            <div class="product-skeleton-img skeleton"></div>
 
-      <div class="product-skeleton-text">
-        <div class="skeleton-line-title skeleton"></div>
-        <div class="skeleton-line-price skeleton"></div>
-      </div>
+            <div class="product-skeleton-text">
+              <div class="skeleton-line-title skeleton"></div>
+              <div class="skeleton-line-price skeleton"></div>
+            </div>
 
-      <div class="skeleton-button skeleton"></div>
-    </div>
-    } } @if(vm.error) {
-    <app-error-state [error]="vm.error" (click)="reload()"></app-error-state>
-    } @if (!vm.loading && !vm.error && (vm.data?.length === 0)) {
-    <p>No Products Found</p>
-    } @for (p of (vm.data ?? []); track p.id) {
-    <app-product-card [product]="p" (addToCart)="onAddToCart(p)">
-    </app-product-card>
-    } }
+            <div class="skeleton-button skeleton"></div>
+          </div>
+        }
+      }
+      @if (vm.error) {
+        <app-error-state
+          [error]="vm.error"
+          (click)="reload()"
+        ></app-error-state>
+      }
+      @if (!vm.loading && !vm.error && vm.data?.length === 0) {
+        <p>No Products Found</p>
+      }
+      @for (p of vm.data ?? []; track p.id) {
+        <app-product-card [product]="p" (addToCart)="onAddToCart(p)">
+        </app-product-card>
+      }
+    }
   </div>
-
+  <button
+    class="fab"
+    type="button"
+    [class.cart-open]="(cartOpen$ | async) === true"
+    (click)="onCreateProductClick()"
+  >
+    +
+  </button>
   <aside
     #panel
     class="cart-panel"
