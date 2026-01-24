@@ -32,6 +32,10 @@ import { Vm } from '../../../../shared/state/view-model';
 import { AppError } from '../../../../core/http/models/app-error';
 import { ErrorStateComponent } from '../../../../shared/ui/error-state/error-state.component';
 import { AuthService } from '../../../auth/data-access/auth.service';
+import {
+  CreateProductModalComponent,
+  CreateProductPayload,
+} from '../../components/create-product-modal/create-product-modal.component';
 
 @Component({
   selector: 'app-products',
@@ -41,6 +45,7 @@ import { AuthService } from '../../../auth/data-access/auth.service';
     CartPanelComponent,
     AsyncPipe,
     ErrorStateComponent,
+    CreateProductModalComponent,
   ],
   templateUrl: './products.component.html',
   styleUrl: './products.component.scss',
@@ -73,13 +78,51 @@ export class ProductsComponent implements AfterViewInit, OnDestroy, OnInit {
   private route = inject(ActivatedRoute);
 
   cartOpen$: Observable<boolean> = this.cart.isOpen$;
+  isCreateModalOpen = false;
 
   onAddToCart(product: Product) {
     this.cart.add(product, 1);
+    this.auth.role$.subscribe((r) => console.log('ROLE FROM JWT:', r));
   }
 
   onCreateProductClick() {
-    //Open modal
+    this.openCreateProductModal();
+  }
+
+  openCreateProductModal() {
+    this.isCreateModalOpen = true;
+  }
+
+  closeCreateProductModal() {
+    this.isCreateModalOpen = false;
+  }
+
+  handleCreateProduct(payload: CreateProductPayload) {
+    const body = {
+      name: payload.name,
+      price: payload.price,
+      stock: payload.quantity,
+    };
+
+    this.productService.createProduct(body).subscribe({
+      next: (created) => {
+        if (!payload.imageFile) {
+          this.closeCreateProductModal();
+          this.reload();
+          return;
+        }
+
+        this.productService
+          .uploadProductImage(created.id, payload.imageFile)
+          .subscribe({
+            next: () => {
+              this.closeCreateProductModal();
+              this.reload();
+            },
+          });
+      },
+    });
+    this.closeCreateProductModal();
   }
 
   reload() {

@@ -1,0 +1,40 @@
+<div class="modal-backdrop">
+  <div class="modal">
+    <h2>Create Product</h2>
+    <form (ngSubmit)="onSubmit()">
+      <input
+        type="text"
+        placeholder="Product Name"
+        aria-label="product name"
+        [(ngModel)]="name"
+        name="name"
+        required
+      />
+      <input
+        type="number"
+        placeholder="Quantity"
+        aria-label="product quantity"
+        [(ngModel)]="quantity"
+        name="quantity"
+        min="1"
+        required
+      />
+      <input
+        type="number"
+        placeholder="Product Price"
+        aria-label="product price"
+        [(ngModel)]="price"
+        name="price"
+        min="1"
+        required
+      />
+      <input type="file" accept="image/*" (change)="onFileSelected($event)" />
+      @if (imagePreviewUrl) {
+        <div class="preview-img">
+          <img [src]="imagePreviewUrl" alt="Selected preview image" />
+        </div>
+      }
+      <button class="product-submit-button" type="submit">Submit</button>
+    </form>
+  </div>
+</div>

@@ -33,6 +33,12 @@
       }
     }
   </div>
+  @if (isCreateModalOpen) {
+    <app-create-product-modal
+      (closeSelf)="closeCreateProductModal()"
+      (submitCreate)="handleCreateProduct($event)"
+    ></app-create-product-modal>
+  }
   <button
     class="fab"
     type="button"
