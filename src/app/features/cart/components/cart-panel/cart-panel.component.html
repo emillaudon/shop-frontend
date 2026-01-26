@@ -3,30 +3,34 @@
     <h2>Cart</h2>
   </div>
   <div class="panel__items">
-    @if(submitVm$ | async; as submit) { @if(submit.loading) {
-    <p>Loading...</p>
-    } @if(submit.error) {
-    <app-error-state
-      [error]="submit.error"
-      (retry)="createOrder()"
-    ></app-error-state>
-    } @if(items$ | async; as items) { @if(!submit.loading && !submit.error &&
-    items.length === 0) {
-    <div class="cart-empty">
-      <p>Cart is empty!</p>
-    </div>
-
-    } @else {
-    <div class="items">
-      @for (i of items; track $index) {
-      <app-cart-item
-        [item]="i"
-        (decrease)="decreaseQuantityOf($event)"
-        (increase)="increaseQuantityOf($event)"
-      />
+    @if (submitVm$ | async; as submit) {
+      @if (submit.loading) {
+        <div class="spinner-ring" aria-label="Loading" role="status"></div>
       }
-    </div>
-    } } }
+      @if (submit.error) {
+        <app-error-state
+          [error]="submit.error"
+          (retry)="createOrder()"
+        ></app-error-state>
+      }
+      @if (items$ | async; as items) {
+        @if (!submit.loading && !submit.error && items.length === 0) {
+          <div class="cart-empty">
+            <p>Cart is empty!</p>
+          </div>
+        } @else {
+          <div class="items">
+            @for (i of items; track $index) {
+              <app-cart-item
+                [item]="i"
+                (decrease)="decreaseQuantityOf($event)"
+                (increase)="increaseQuantityOf($event)"
+              />
+            }
+          </div>
+        }
+      }
+    }
   </div>
 
   <div class="panel__footer">
