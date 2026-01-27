@@ -36,6 +36,7 @@ import {
   CreateProductModalComponent,
   CreateProductPayload,
 } from '../../components/create-product-modal/create-product-modal.component';
+import { RemoveProductModalComponent } from '../../components/remove-product-modal/remove-product-modal.component';
 
 @Component({
   selector: 'app-products',
@@ -46,6 +47,7 @@ import {
     AsyncPipe,
     ErrorStateComponent,
     CreateProductModalComponent,
+    RemoveProductModalComponent,
   ],
   templateUrl: './products.component.html',
   styleUrl: './products.component.scss',
@@ -79,6 +81,7 @@ export class ProductsComponent implements AfterViewInit, OnDestroy, OnInit {
 
   cartOpen$: Observable<boolean> = this.cart.isOpen$;
   isCreateModalOpen = false;
+  isRemoveProductModalOpen = false;
 
   onAddToCart(product: Product) {
     this.cart.add(product, 1);
@@ -122,6 +125,15 @@ export class ProductsComponent implements AfterViewInit, OnDestroy, OnInit {
           });
       },
     });
+  }
+
+  handleClickDeleteProductButton() {
+    this.isRemoveProductModalOpen = true;
+    console.log(21);
+  }
+
+  closeRemoveProductModal() {
+    this.isRemoveProductModalOpen = false;
   }
 
   handleDeleteProduct(product: Product) {
