@@ -16,7 +16,13 @@
       @if (items$ | async; as items) {
         @if (!submit.loading && !submit.error && items.length === 0) {
           <div class="cart-empty">
-            <p>Cart is empty!</p>
+            <img
+              src="assets/empty-cart.png"
+              alt="Empty Cart"
+              class="cart-empty-image"
+            />
+            <h3>Your Cart Is Empty</h3>
+            <p>Looks like you havn't added anything to your cart yet!</p>
           </div>
         } @else {
           <div class="items">

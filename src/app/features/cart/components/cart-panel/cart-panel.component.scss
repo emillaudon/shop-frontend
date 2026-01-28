@@ -36,19 +36,28 @@
 
 .cart-empty {
   display: flex;
-  margin: 0 auto;
-  background:
-    radial-gradient(
-      circle at 30% 30%,
-      rgba(46, 125, 50, 0.18),
-      transparent 60%
-    ),
-    rgba(0, 0, 0, 0.03);
   align-items: center;
   justify-content: center;
-  height: 150px;
-  width: 150px;
-  border-radius: 9999px;
+  flex-direction: column;
+  text-align: center;
+  p {
+    margin-top: 0;
+    opacity: 0.25;
+    font-size: 14px;
+  }
+
+  h3 {
+    margin-top: 0;
+  }
+}
+
+.cart-empty-image {
+  margin-top: 16px;
+  width: 200px;
+  height: 200px;
+  object-fit: contain;
+  transform: scale(2);
+  display: block;
 }
 
 .panel__items {
