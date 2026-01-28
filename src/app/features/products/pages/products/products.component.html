@@ -32,7 +32,7 @@
           [product]="p"
           (addToCart)="onAddToCart(p)"
           [canDelete]="(isAdmin$ | async) === true"
-          (deleteProduct)="handleClickDeleteProductButton()"
+          (deleteProduct)="handleClickDeleteProductButton($event)"
         >
         </app-product-card>
       }
@@ -45,10 +45,11 @@
     ></app-create-product-modal>
   }
 
-  @if (isRemoveProductModalOpen) {
+  @if (isRemoveProductModalOpen && selectedProduct) {
     <app-remove-product-modal
-      product="Test"
+      [product]="selectedProduct.name"
       (closeSelf)="closeRemoveProductModal()"
+      (deleteItem)="handleDeleteProduct(selectedProduct)"
     ></app-remove-product-modal>
   }
   @if (isAdmin$ | async) {

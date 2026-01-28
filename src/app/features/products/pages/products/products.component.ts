@@ -56,6 +56,8 @@ export class ProductsComponent implements AfterViewInit, OnDestroy, OnInit {
   private auth = inject(AuthService);
   isAdmin$ = this.auth.role$.pipe(map((role) => role === 'ADMIN'));
 
+  selectedProduct: Product | null = null;
+
   @ViewChild('panel') panelRef?: ElementRef<HTMLElement>;
 
   @ViewChild('panel')
@@ -127,9 +129,9 @@ export class ProductsComponent implements AfterViewInit, OnDestroy, OnInit {
     });
   }
 
-  handleClickDeleteProductButton() {
+  handleClickDeleteProductButton(product: Product) {
     this.isRemoveProductModalOpen = true;
-    console.log(21);
+    this.selectedProduct = product;
   }
 
   closeRemoveProductModal() {
@@ -149,6 +151,8 @@ export class ProductsComponent implements AfterViewInit, OnDestroy, OnInit {
         next: () => this.reload(),
         error: (err: unknown) => console.error(err),
       });
+
+    this.selectedProduct = null;
   }
 
   reload() {

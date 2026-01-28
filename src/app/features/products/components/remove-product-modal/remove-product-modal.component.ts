@@ -1,4 +1,10 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  HostListener,
+  Input,
+  Output,
+} from '@angular/core';
 
 @Component({
   selector: 'app-remove-product-modal',
@@ -22,6 +28,11 @@ export class RemoveProductModalComponent {
   }
 
   onClickCancel() {
+    this.closeSelf.emit();
+  }
+
+  @HostListener('document:keydown.escape')
+  onEscPressed() {
     this.closeSelf.emit();
   }
 }
