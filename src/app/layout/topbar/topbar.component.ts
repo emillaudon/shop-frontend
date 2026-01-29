@@ -1,10 +1,17 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
+import { AuthService } from '../../features/auth/data-access/auth.service';
+import { AsyncPipe } from '@angular/common';
 
 @Component({
   selector: 'app-topbar',
-  imports: [RouterLink, RouterLinkActive],
+  imports: [RouterLink, RouterLinkActive, AsyncPipe],
   templateUrl: './topbar.component.html',
   styleUrl: './topbar.component.scss',
 })
-export class TopbarComponent {}
+export class TopbarComponent {
+  auth = inject(AuthService);
+
+  isLoggedIn$ = this.auth.isLoggedIn$;
+  userEmail = this.auth.email$;
+}

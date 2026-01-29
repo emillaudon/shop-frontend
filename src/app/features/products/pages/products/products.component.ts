@@ -54,7 +54,10 @@ import { RemoveProductModalComponent } from '../../components/remove-product-mod
 })
 export class ProductsComponent implements AfterViewInit, OnDestroy, OnInit {
   private auth = inject(AuthService);
-  isAdmin$ = this.auth.role$.pipe(map((role) => role === 'ADMIN'));
+  isAdmin$ = this.auth.role$.pipe(
+    map((role) => role === 'ADMIN'),
+    distinctUntilChanged(),
+  );
 
   selectedProduct: Product | null = null;
 
@@ -87,7 +90,6 @@ export class ProductsComponent implements AfterViewInit, OnDestroy, OnInit {
 
   onAddToCart(product: Product) {
     this.cart.add(product, 1);
-    this.auth.role$.subscribe((r) => console.log('ROLE FROM JWT:', r));
   }
 
   onCreateProductClick() {

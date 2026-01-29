@@ -10,6 +10,13 @@ interface AuthRequest {
   password: string;
 }
 
+interface JwtPayload {
+  sub?: string;
+  role?: Role;
+  exp?: number;
+  iat?: number;
+}
+
 type Role = 'USER' | 'ADMIN';
 
 const TOKEN_KEY = 'auth_token';
@@ -26,9 +33,14 @@ export class AuthService {
 
   readonly token$ = this.tokenSubject.asObservable();
   readonly isLoggedIn$ = this.token$.pipe(map((t) => !!t));
-  role$ = this.token$.pipe(
-    map((t) => (t ? this.getRoleFromJwt(t) : (null as Role | null))),
+
+  readonly payload$ = this.token$.pipe(
+    map((t) => (t ? this.getPayloadFromJwt(t) : null)),
   );
+
+  readonly email$ = this.payload$.pipe(map((p) => p?.sub ?? null));
+
+  readonly role$ = this.payload$.pipe(map((p) => p?.role ?? null));
 
   getTokenSnapshot(): string | null {
     return this.tokenSubject.value;
@@ -51,25 +63,19 @@ export class AuthService {
   }
 
   isTokenExpired(token: string): boolean {
-    try {
-      const [, payLoadBase64] = token.split('.');
-      const payloadJson = atob(
-        payLoadBase64.replace(/-/g, '+').replace(/_/g, '/'),
-      );
-      const payload = JSON.parse(payloadJson);
+    const payload = this.getPayloadFromJwt(token);
+    const exp = payload?.exp;
 
-      const exp = payload?.exp;
-      if (!exp) {
-        this.logout();
-        return true;
-      }
-
-      const now = Math.floor(Date.now() / 1000);
-      return exp <= now;
-    } catch {
+    if (typeof exp !== 'number') {
       this.logout();
       return true;
     }
+
+    const now = Math.floor(Date.now() / 1000);
+    const expired = exp <= now;
+
+    if (expired) this.logout();
+    return expired;
   }
 
   private setToken(token: string | null) {
@@ -78,22 +84,28 @@ export class AuthService {
     else localStorage.removeItem(TOKEN_KEY);
   }
 
-  private getRoleFromJwt(token: string): Role | null {
+  private getPayloadFromJwt(token: string): JwtPayload | null | undefined {
     try {
       const payloadPart = token.split('.')[1];
+
       if (!payloadPart) return null;
 
-      const base64 = payloadPart.replace(/-/g, '+').replace(/_/g, '/');
-      const json = decodeURIComponent(
-        atob(base64)
-          .split('')
-          .map((c) => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2))
-          .join(''),
-      );
-      const payload = JSON.parse(json) as { role?: Role };
-      return payload.role ?? null;
+      const json = this.base64UrlDecode(payloadPart);
+      return JSON.parse(json) as JwtPayload;
     } catch {
       return null;
     }
+  }
+
+  private base64UrlDecode(base64Url: string): string {
+    let base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+
+    const pad = base64.length % 4;
+    if (pad) base64 += '='.repeat(4 - pad);
+
+    const binary = atob(base64);
+    const bytes = Uint8Array.from(binary, (c) => c.charCodeAt(0));
+
+    return new TextDecoder().decode(bytes);
   }
 }

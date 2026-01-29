@@ -4,6 +4,9 @@
       <img class="logo" src="/assets/shop-logo.png" alt="LOGO" />
     </div>
     <div class="top__right">
+      @if (isLoggedIn$ | async) {
+        <p>{{ userEmail | async }}</p>
+      }
       <a
         routerLink="/login"
         routerLinkActive="active"
@@ -16,7 +19,6 @@
           aria-label="Go to account page"
         />
       </a>
-      <span class="material-icons">person</span>
     </div>
   </div>
 </div>
