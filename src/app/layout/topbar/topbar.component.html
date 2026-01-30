@@ -6,11 +6,13 @@
     <div class="top__right">
       <div class="user-dropdown">
         @if (isLoggedIn$ | async) {
-          <a (click)="toggleUserDropdown()">{{ userEmail | async }}</a>
+          <button class="user-email" (click)="toggleUserDropdown()">
+            {{ userEmail | async }}
+          </button>
         }
         @if (userMenuOpen) {
           <div class="menu">
-            <a>My Account</a>
+            <button class="my-account-button">My Account</button>
             <button (click)="logoutButtonClicked()">Log Out</button>
           </div>
         }
