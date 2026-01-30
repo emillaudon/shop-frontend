@@ -14,4 +14,15 @@ export class TopbarComponent {
 
   isLoggedIn$ = this.auth.isLoggedIn$;
   userEmail = this.auth.email$;
+
+  userMenuOpen = false;
+
+  toggleUserDropdown() {
+    this.userMenuOpen = !this.userMenuOpen;
+  }
+
+  logoutButtonClicked() {
+    this.auth.logout();
+    this.toggleUserDropdown();
+  }
 }

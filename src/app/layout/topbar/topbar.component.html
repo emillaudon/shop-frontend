@@ -4,9 +4,17 @@
       <img class="logo" src="/assets/shop-logo.png" alt="LOGO" />
     </div>
     <div class="top__right">
-      @if (isLoggedIn$ | async) {
-        <p>{{ userEmail | async }}</p>
-      }
+      <div class="user-dropdown">
+        @if (isLoggedIn$ | async) {
+          <a (click)="toggleUserDropdown()">{{ userEmail | async }}</a>
+        }
+        @if (userMenuOpen) {
+          <div class="menu">
+            <a>My Account</a>
+            <button (click)="logoutButtonClicked()">Log Out</button>
+          </div>
+        }
+      </div>
       <a
         routerLink="/login"
         routerLinkActive="active"
