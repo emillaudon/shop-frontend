@@ -2,6 +2,7 @@ import { Component, inject } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { AuthService } from '../../features/auth/data-access/auth.service';
 import { AsyncPipe } from '@angular/common';
+import { BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'app-topbar',
@@ -15,10 +16,11 @@ export class TopbarComponent {
   isLoggedIn$ = this.auth.isLoggedIn$;
   userEmail = this.auth.email$;
 
-  userMenuOpen = false;
+  private userMenuOpen = new BehaviorSubject(false);
+  isUserMenuOpen$ = this.userMenuOpen.asObservable();
 
   toggleUserDropdown() {
-    this.userMenuOpen = !this.userMenuOpen;
+    this.userMenuOpen.next(!this.userMenuOpen.value);
   }
 
   logoutButtonClicked() {

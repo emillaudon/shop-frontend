@@ -10,12 +10,10 @@
             {{ userEmail | async }}
           </button>
         }
-        @if (userMenuOpen) {
-          <div class="menu">
-            <button class="my-account-button">My Account</button>
-            <button (click)="logoutButtonClicked()">Log Out</button>
-          </div>
-        }
+        <div class="menu" [class.is-open]="isUserMenuOpen$ | async">
+          <button class="my-account-button">My Account</button>
+          <button (click)="logoutButtonClicked()">Log Out</button>
+        </div>
       </div>
       <a
         routerLink="/login"
