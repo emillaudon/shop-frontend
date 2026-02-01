@@ -10,6 +10,11 @@ best practices, and maintainable frontend code.
 
 ---
 
+## Run the full stack
+
+To run the complete application (frontend + backend + MySQL) locally, use the stack repo:  
+https://github.com/emillaudon/shop-stack
+
 ## Screenshots
 
 ### Product Catalog & Shopping Cart
