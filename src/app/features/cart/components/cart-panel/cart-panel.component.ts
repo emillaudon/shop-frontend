@@ -19,6 +19,7 @@ import { Vm } from '../../../../shared/state/view-model';
 import { AppError } from '../../../../core/http/models/app-error';
 import { ErrorStateComponent } from '../../../../shared/ui/error-state/error-state.component';
 import { CartItemComponent } from '../cart-item/cart-item.component';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-cart-panel',
@@ -27,6 +28,7 @@ import { CartItemComponent } from '../cart-item/cart-item.component';
   styleUrl: './cart-panel.component.scss',
 })
 export class CartPanelComponent implements OnInit {
+  private snackBar = inject(MatSnackBar);
   private cart = inject(CartService);
   private orderService = inject(OrderService);
 
@@ -50,6 +52,7 @@ export class CartPanelComponent implements OnInit {
           tap(() => {
             this.cart.clear();
             this.cart.closePanel();
+            this.showToast();
           }),
           map(() => ({ loading: false })),
           startWith({ loading: true }),
@@ -71,5 +74,13 @@ export class CartPanelComponent implements OnInit {
 
   createOrder() {
     this.submit$.next();
+  }
+
+  showToast() {
+    this.snackBar.open('Order created.', 'close', {
+      duration: 3000,
+      horizontalPosition: 'center',
+      verticalPosition: 'bottom',
+    });
   }
 }

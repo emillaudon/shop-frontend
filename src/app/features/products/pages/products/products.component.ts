@@ -37,6 +37,7 @@ import {
   CreateProductPayload,
 } from '../../components/create-product-modal/create-product-modal.component';
 import { RemoveProductModalComponent } from '../../components/remove-product-modal/remove-product-modal.component';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-products',
@@ -58,6 +59,8 @@ export class ProductsComponent implements AfterViewInit, OnDestroy, OnInit {
     map((role) => role === 'ADMIN'),
     distinctUntilChanged(),
   );
+
+  snackBar = inject(MatSnackBar);
 
   selectedProduct: Product | null = null;
 
@@ -114,6 +117,7 @@ export class ProductsComponent implements AfterViewInit, OnDestroy, OnInit {
     this.productService.createProduct(body).subscribe({
       next: (created) => {
         if (!payload.imageFile) {
+          this.showToast('Product added.');
           this.closeCreateProductModal();
           this.reload();
           return;
@@ -123,6 +127,7 @@ export class ProductsComponent implements AfterViewInit, OnDestroy, OnInit {
           .uploadProductImage(created.id, payload.imageFile)
           .subscribe({
             next: () => {
+              this.showToast('Product added.');
               this.closeCreateProductModal();
               this.reload();
             },
@@ -150,7 +155,10 @@ export class ProductsComponent implements AfterViewInit, OnDestroy, OnInit {
     deleteImage$
       .pipe(switchMap(() => this.productService.deleteProduct(product.id)))
       .subscribe({
-        next: () => this.reload(),
+        next: () => {
+          this.reload();
+          this.showToast('Product deleted.');
+        },
         error: (err: unknown) => console.error(err),
       });
 
@@ -201,6 +209,14 @@ export class ProductsComponent implements AfterViewInit, OnDestroy, OnInit {
 
   ngOnDestroy() {
     this.sub.unsubscribe();
+  }
+
+  showToast(message: string) {
+    this.snackBar.open(message, 'close', {
+      duration: 3000,
+      horizontalPosition: 'center',
+      verticalPosition: 'bottom',
+    });
   }
 
   @HostListener('window:scroll')
